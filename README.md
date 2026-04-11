@@ -4,6 +4,8 @@
 [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg?style=flat&logo=python)](https://www.python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+**中文版** | [English Version](./README_EN.md)
+
 一个基于 **Seedance 2.0** 构建的可私有化部署、轻量级 AI 视频生成控制台。本项目为开源简化版（Lite），使用本地 **SQLite3** 存储数据，配合 **阿里云 OSS** 管理上传素材，支持多模态参考输入和精细化的任务管理。
 
 如果你需要supabase多用户管理,支持用户生成管理,请联系:giordanoshai@gmail.com
