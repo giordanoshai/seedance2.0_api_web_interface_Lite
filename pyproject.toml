@@ -1,0 +1,18 @@
+[project]
+name = "seedance2-0-api-web-lite"
+version = "0.2.0"
+description = "Seedance 2.0 AI 视频生成工作台（开源版，SQLite3 + 阿里云 OSS）"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiosqlite>=0.21.0",
+    "fastapi>=0.135.3",
+    "httpx>=0.28.1",
+    "jinja2>=3.1.6",
+    "oss2>=2.19.1",
+    "pillow>=12.2.0",
+    "pydantic>=2.10.4",
+    "python-dotenv>=1.2.2",
+    "python-multipart>=0.0.25",
+    "uvicorn[standard]>=0.44.0",
+]

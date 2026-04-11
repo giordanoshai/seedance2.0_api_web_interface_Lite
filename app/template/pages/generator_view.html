@@ -1,0 +1,941 @@
+<template x-if="currentView === 'generator'">
+    <div class="flex-1 flex overflow-hidden" x-init="$nextTick(() => scrollChat())">
+        <section
+            class="flex-1 h-full min-h-0 bg-surface-container-low flex flex-col border-l border-white/5 shadow-2xl overflow-hidden">
+            <div class="p-5 border-b border-white/5">
+                <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-primary text-xl">auto_awesome</span>
+                        <h3 class="font-headline font-bold text-indigo-50 color-indigo-50 text-base">AI Director</h3>
+                    </div>
+                    <!-- 容量状态徽章 -->
+                    <template x-if="currentModelCapacity.limit > 0">
+                        <span
+                            class="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-label uppercase tracking-wide"
+                            :class="{
+                                            'bg-emerald-500/15 text-emerald-400': currentModelCapacity.available && (currentModelCapacity.active / currentModelCapacity.limit) <= 0.7,
+                                            'bg-amber-500/15 text-amber-300':  currentModelCapacity.available && (currentModelCapacity.active / currentModelCapacity.limit) > 0.7,
+                                            'bg-red-500/15 text-red-400':      !currentModelCapacity.available
+                                        }">
+                            <span class="inline-block h-1.5 w-1.5 rounded-full" :class="{
+                                                'bg-emerald-400 animate-pulse': currentModelCapacity.available && (currentModelCapacity.active / currentModelCapacity.limit) <= 0.7,
+                                                'bg-amber-300 animate-pulse':  currentModelCapacity.available && (currentModelCapacity.active / currentModelCapacity.limit) > 0.7,
+                                                'bg-red-400':                  !currentModelCapacity.available
+                                            }"></span>
+                            <span
+                                x-text="currentModelCapacity.available ? (currentModelCapacity.active + '/' + currentModelCapacity.limit + ' 任务') : '队列已满'">
+                            </span>
+                        </span>
+                    </template>
+                </div>
+                <p class="text-[13px] text-slate-400 font-body mt-1">输入描述，附加图片/视频/音频参考</p>
+            </div>
+
+            <div id="chatFeed" class="flex-1 overflow-y-auto p-5 space-y-3">
+
+                <!-- 懒加载历史消息指示条 -->
+                <template x-if="messagesLoadingMore">
+                    <div class="flex justify-center py-2">
+                        <span class="flex items-center gap-2 text-[11px] text-indigo-300 font-label animate-pulse">
+                            <svg class="h-3 w-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24">
+                                <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="3"></circle>
+                                <path class="opacity-80" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                            </svg>
+                            加载历史消息...
+                        </span>
+                    </div>
+                </template>
+                <template x-if="!messagesHasMore && messages.length > 0 && !messagesLoadingMore">
+                    <div class="flex justify-center py-1">
+                        <span class="text-[10px] text-slate-600 font-label">— 已加载全部消息 —</span>
+                    </div>
+                </template>
+
+                <div x-show="!currentConversation" class="flex flex-col items-center justify-center h-full gap-4">
+                    <span class="material-symbols-outlined text-5xl text-slate-700">chat</span>
+                    <p class="text-sm text-slate-500 font-label">创建或选择一个对话开始</p>
+                </div>
+
+                <template x-for="(msg, idx) in messages" :key="idx">
+                    <div class="fade-in-up"
+                        :class="msg.role === 'user' ? 'flex flex-col items-end' : 'flex flex-col items-start'">
+                        <template x-if="msg.role === 'user'">
+                            <div class="max-w-[85%] space-y-2">
+                                <div
+                                    class="relative group bg-surface-container-highest p-4 rounded-xl rounded-tr-none border-l-2 border-primary-container">
+                                    <button @click="regenerateFromMessage(msg)" :disabled="generating"
+                                        class="absolute bottom-2 right-2 h-6 w-6 rounded-md bg-primary/85 text-on-primary flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-primary transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                                        title="使用这条 Prompt 重新生成">
+                                        <span class="material-symbols-outlined text-[14px]">refresh</span>
+                                    </button>
+                                    <p class="text-sm text-indigo-100" x-text="msg.text"></p>
+                                    <template x-if="msg.attachments?.length">
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <template x-for="(att, ai) in msg.attachments" :key="ai">
+                                                <div class="relative group">
+                                                    <template x-if="att.type === 'image'">
+                                                        <img :src="att.preview || att.signed_url" loading="lazy"
+                                                            class="h-14 w-14 object-cover rounded-lg border border-white/10" />
+                                                    </template>
+                                                    <template x-if="att.type === 'video'">
+                                                        <div
+                                                            class="relative h-14 w-14 rounded-lg overflow-hidden border border-white/10 bg-black">
+                                                            <template
+                                                                x-if="att.preview && !att.preview.startsWith('blob:video/') && !att.preview.endsWith('.mp4')">
+                                                                <img :src="att.preview" loading="lazy"
+                                                                    class="h-full w-full object-cover" />
+                                                            </template>
+                                                            <template
+                                                                x-if="!att.preview || att.preview.startsWith('blob:video/') || att.preview.endsWith('.mp4')">
+                                                                <video :src="att.preview || att.signed_url"
+                                                                    preload="none" muted
+                                                                    class="h-full w-full object-cover"></video>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                    <div x-show="att.type === 'audio'"
+                                                        class="h-14 w-14 rounded-lg border border-white/10 bg-slate-950/70 flex items-center justify-center">
+                                                        <span
+                                                            class="material-symbols-outlined text-slate-300">graphic_eq</span>
+                                                    </div>
+                                                    <span
+                                                        class="absolute bottom-0 left-0 right-0 bg-black/60 text-[8px] text-center text-slate-300 py-0.5 rounded-b-lg font-label uppercase"
+                                                        x-text="att.role === 'first_frame' ? '首帧' : att.role === 'last_frame' ? '尾帧' : att.role === 'reference_image' ? '参考图' : att.role === 'reference_video' ? '参考视频' : att.role === 'reference_audio' ? '参考音频' : ''"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                                <span class="font-label text-[9px] text-slate-600 uppercase" x-text="msg.time"></span>
+                            </div>
+                        </template>
+                        <template x-if="msg.role === 'system'">
+                            <div class="max-w-[85%] space-y-2">
+                                <div class="glass-panel p-4 rounded-xl rounded-tl-none border-r-2 border-tertiary">
+                                    <p class="text-sm text-on-surface-variant leading-relaxed" x-html="msg.text"></p>
+                                    <!-- 只要有任务ID就显示：在消息气泡内显示 prompt 摘要 + meta -->
+                                    <template x-if="msg.taskId">
+                                        <div class="mt-2 space-y-1">
+                                            <!-- 第一行：图标 + Prompt + 核心参数 -->
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <span
+                                                    class="material-symbols-outlined text-sm text-primary shrink-0">smart_display</span>
+                                                <span class="text-xs text-indigo-200 truncate max-w-[180px]"
+                                                    x-text="msg.promptSnippet || '视频已生成'"></span>
+                                                <div
+                                                    class="flex items-center text-[10px] text-slate-500 divide-x divide-white/10">
+                                                    <span class="px-1.5 first:pl-0" x-text="msg.modelName || ''"></span>
+                                                    <template x-if="msg.duration"><span class="px-1.5"
+                                                            x-text="msg.duration + 's'"></span></template>
+                                                    <template x-if="msg.resolution"><span class="px-1.5"
+                                                            x-text="msg.resolution"></span></template>
+                                                </div>
+                                            </div>
+                                            <!-- 第二行：任务 ID -->
+                                            <div class="flex items-center gap-1.5 pl-6">
+                                                <span class="text-[9px] text-slate-600 font-label uppercase">Task
+                                                    ID:</span>
+                                                <span class="text-[9px] text-slate-500 font-mono"
+                                                    x-text="msg.taskId"></span>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template x-if="msg.taskId && activeTasks[msg.taskId]">
+                                        <div class="mt-3 rounded-lg border border-white/10 bg-slate-950/40 p-3">
+                                            <div class="flex items-center justify-between gap-3">
+                                                <div class="flex items-center gap-2.5">
+                                                    <!-- 转圈 Spinner -->
+                                                    <svg class="animate-spin h-4 w-4 text-primary shrink-0"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <circle class="opacity-20" cx="12" cy="12" r="10"
+                                                            stroke="currentColor" stroke-width="3"></circle>
+                                                        <path class="opacity-80" fill="currentColor"
+                                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                                    </svg>
+                                                    <div>
+                                                        <p class="text-xs font-bold text-indigo-100"
+                                                            x-text="activeTasks[msg.taskId].statusText"></p>
+                                                        <p class="text-[10px] text-slate-400 mt-0.5"
+                                                            x-text="activeTasks[msg.taskId].pollingStatus || '轮询中...' ">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    @click="activeTasks[msg.taskId].volcanoStatus !== 'running' && !activeTasks[msg.taskId].cancelling && cancelTask(msg.taskId)"
+                                                    :disabled="activeTasks[msg.taskId].volcanoStatus === 'running' || activeTasks[msg.taskId].cancelling"
+                                                    :title="activeTasks[msg.taskId].volcanoStatus === 'running' ? '任务生成中，服务端不支持中断' : activeTasks[msg.taskId].cancelling ? '正在取消...' : '取消任务'"
+                                                    :class="activeTasks[msg.taskId].volcanoStatus === 'running' || activeTasks[msg.taskId].cancelling
+                                                        ? 'border-slate-600/40 bg-slate-700/20 text-slate-500 cursor-not-allowed'
+                                                        : 'border-red-400/40 bg-red-500/10 text-red-300 hover:bg-red-500/20 cursor-pointer'"
+                                                    class="h-7 px-2.5 rounded-md border text-[10px] font-label uppercase tracking-wide transition-colors disabled:opacity-40">
+                                                    <span
+                                                        x-show="activeTasks[msg.taskId].volcanoStatus !== 'running' && !activeTasks[msg.taskId].cancelling">取消任务</span>
+                                                    <span x-show="activeTasks[msg.taskId].cancelling"
+                                                        class="flex items-center gap-1">
+                                                        <svg class="animate-spin h-3 w-3" viewBox="0 0 24 24"
+                                                            fill="none">
+                                                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                                stroke="currentColor" stroke-width="4" />
+                                                            <path class="opacity-75" fill="currentColor"
+                                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                                        </svg>
+                                                        取消中...
+                                                    </span>
+                                                    <span
+                                                        x-show="activeTasks[msg.taskId].volcanoStatus === 'running' && !activeTasks[msg.taskId].cancelling"
+                                                        class="flex items-center gap-1">
+                                                        <span class="material-symbols-outlined text-[11px]">lock</span>
+                                                        生成中·无法取消
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template x-if="msg.videoUrl">
+                                        <!-- 视频缩略图，点击弹窗播放 -->
+                                        <div
+                                            class="mt-3 rounded-xl overflow-hidden border border-white/10 bg-black min-h-[200px]">
+                                            <div class="relative group cursor-pointer"
+                                                @click="openVideoModal(msg.videoUrl)">
+                                                <video :src="msg.videoUrl + '#t=0.1'" :class="[
+                                                        'w-full max-h-64 object-contain bg-black/50 block',
+                                                        msg.ratio === '16:9' ? 'aspect-video' : 
+                                                        msg.ratio === '9:16' ? 'aspect-[9/16]' : 
+                                                        msg.ratio === '1:1' ? 'aspect-square' : 'aspect-video'
+                                                    ]" preload="metadata" muted>
+                                                </video>
+                                                <!-- 播放遮罩 -->
+                                                <div
+                                                    class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <div
+                                                        class="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                                        <span
+                                                            class="material-symbols-outlined text-white text-2xl">play_arrow</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                                <span class="font-label text-[9px] text-slate-600 uppercase" x-text="msg.time"></span>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+
+
+            <!-- ===== Advanced Configuration (重设计，pill button 风格，折叠面板) ===== -->
+            <div class="border-t border-white/5 bg-black/20">
+                <!-- 首尾帧上传区 (移至此处，只要 enableFrames 为 true 就显示) -->
+                <div x-show="enableFrames" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 -translate-y-2"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    class="px-5 py-4 border-b border-white/5 bg-indigo-500/5">
+                    <div class="flex gap-4 items-center">
+                        <div class="flex gap-3 shrink-0">
+                            <!-- 首帧 -->
+                            <div
+                                class="w-28 h-20 relative rounded-xl border border-white/10 bg-slate-950/40 overflow-hidden shadow-xl">
+                                <template x-if="!firstFrame">
+                                    <label
+                                        class="absolute inset-0 border-2 border-dashed border-indigo-500/20 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-indigo-500/40 transition-all group">
+                                        <span
+                                            class="material-symbols-outlined text-indigo-400/50 group-hover:text-indigo-400 text-xl">first_page</span>
+                                        <span
+                                            class="text-[10px] font-label text-slate-500 uppercase group-hover:text-indigo-200 transition-colors mt-1">上传首帧</span>
+                                        <input type="file" accept="image/*" @change="handleFirstFrameSelect($event)"
+                                            class="hidden" />
+                                    </label>
+                                </template>
+                                <template x-if="firstFrame">
+                                    <div class="absolute inset-0 group">
+                                        <img :src="firstFrame?.preview" class="w-full h-full object-contain" />
+                                        <div
+                                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <button @click.stop="removeFirstFrame()"
+                                                class="h-8 w-8 bg-error text-on-error rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                                                <span class="material-symbols-outlined text-sm">close</span>
+                                            </button>
+                                        </div>
+                                        <span
+                                            class="absolute bottom-1 left-1 px-1.5 py-0.5 bg-primary/90 text-on-primary text-[9px] rounded font-bold uppercase tracking-wider">First
+                                            Frame</span>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- 尾帧 -->
+                            <div
+                                class="w-28 h-20 relative rounded-xl border border-white/10 bg-slate-950/40 overflow-hidden shadow-xl">
+                                <template x-if="!lastFrame">
+                                    <label
+                                        class="absolute inset-0 border-2 border-dashed border-indigo-500/20 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-indigo-500/40 transition-all group">
+                                        <span
+                                            class="material-symbols-outlined text-indigo-400/50 group-hover:text-indigo-400 text-xl">last_page</span>
+                                        <span
+                                            class="text-[10px] font-label text-slate-500 uppercase group-hover:text-indigo-200 transition-colors mt-1">上传尾帧</span>
+                                        <input type="file" accept="image/*" @change="handleLastFrameSelect($event)"
+                                            class="hidden" />
+                                    </label>
+                                </template>
+                                <template x-if="lastFrame">
+                                    <div class="absolute inset-0 group">
+                                        <img :src="lastFrame?.preview" class="w-full h-full object-contain" />
+                                        <div
+                                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <button @click.stop="removeLastFrame()"
+                                                class="h-8 w-8 bg-error text-on-error rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                                                <span class="material-symbols-outlined text-sm">close</span>
+                                            </button>
+                                        </div>
+                                        <span
+                                            class="absolute bottom-1 left-1 px-1.5 py-0.5 bg-tertiary/90 text-on-tertiary text-[9px] rounded font-bold uppercase tracking-wider">Last
+                                            Frame</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-xs font-bold text-indigo-200 uppercase tracking-wider">首尾帧控制</h4>
+                            <p class="text-[11px] text-slate-500 max-w-[200px]">上传图片以精确控制视频的起始与结束画面，实现更完美的转场。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 顶部栏：主配置 + 展开/折叠 -->
+                <div class="px-5 py-3.5 flex flex-wrap items-center gap-4">
+                    <!-- 标题 + 折叠按钮 -->
+                    <button @click="showAdvancedConfig = !showAdvancedConfig"
+                        class="flex items-center gap-2 text-xs font-label uppercase tracking-widest text-slate-400 hover:text-indigo-300 transition-colors shrink-0">
+                        <span class="material-symbols-outlined text-lg">tune</span>
+                        参数配置
+                        <span class="material-symbols-outlined text-sm transition-transform duration-200"
+                            :class="showAdvancedConfig ? 'rotate-180' : ''">expand_more</span>
+                    </button>
+                    <div class="h-4 w-px bg-white/10 shrink-0"></div>
+
+                    <!-- 视频比例 pill buttons -->
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider shrink-0">比例</span>
+                        <div class="flex gap-1.5">
+                            <template x-for="r in currentModelConfig?.ratios || []" :key="r">
+                                <button @click="params.ratio = r" :class="params.ratio === r
+                                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
+                                        : 'text-slate-500 border-white/8 hover:border-white/20 hover:text-slate-300'"
+                                    class="px-2.5 py-1 text-[11px] font-label border rounded-md transition-all min-w-[36px]"
+                                    x-text="r"></button>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="h-4 w-px bg-white/10 shrink-0"></div>
+
+                    <!-- 时长 pill buttons -->
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider shrink-0">时长</span>
+                        <div class="flex gap-1.5">
+                            <template x-for="d in currentModelConfig?.durations || []" :key="d">
+                                <button @click="params.duration = d" :class="params.duration === d
+                                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
+                                        : 'text-slate-500 border-white/8 hover:border-white/20 hover:text-slate-300'"
+                                    class="px-2.5 py-1 text-[11px] font-label border rounded-md transition-all min-w-[32px]"
+                                    x-text="d + 's'"></button>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="h-4 w-px bg-white/10 shrink-0"></div>
+
+                    <!-- 分辨率 pill buttons (seedance-1.5-pro) -->
+                    <div x-show="selectedModel === 'seedance-1.5-pro'" class="flex items-center gap-2 shrink-0">
+                        <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider shrink-0">分辨率</span>
+                        <div class="flex gap-1.5">
+                            <template x-for="res in ['480p','720p','1080p']" :key="res">
+                                <button @click="params.resolution = res" :disabled="params.draft" :class="params.resolution === res
+                                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
+                                        : 'text-slate-500 border-white/8 hover:border-white/20 hover:text-slate-300'"
+                                    class="px-2.5 py-1 text-[11px] font-label border rounded-md transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                                    x-text="res"></button>
+                            </template>
+                        </div>
+                        <div class="h-4 w-px bg-white/10 shrink-0 ml-1"></div>
+                    </div>
+
+                    <!-- 分辨率 pill buttons (已为 2.0 隐藏，因为 2.0 不支持显式指定分辨率，由模型自动决定最佳画质) -->
+
+                    <!-- 生成音频 mini toggle -->
+                    <div x-show="currentModelConfig?.has_audio" class="flex items-center gap-2 shrink-0">
+                        <button @click="params.generate_audio = !params.generate_audio"
+                            :class="params.generate_audio ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40' : 'text-slate-500 border-white/8 hover:border-white/20'"
+                            class="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-label border rounded-md transition-all">
+                            <span class="material-symbols-outlined text-sm">graphic_eq</span>
+                            音频
+                        </button>
+                    </div>
+
+                    <!-- 水印 mini toggle -->
+                    <div class="flex items-center gap-2 shrink-0">
+                        <button @click="params.watermark = !params.watermark"
+                            :class="params.watermark ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40' : 'text-slate-500 border-white/8 hover:border-white/20'"
+                            class="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-label border rounded-md transition-all">
+                            <span class="material-symbols-outlined text-sm">branding_watermark</span>
+                            水印
+                        </button>
+                    </div>
+
+                    <!-- 首尾帧 mini toggle -->
+                    <div class="flex items-center gap-2 shrink-0 ml-auto">
+                        <button @click="toggleFramesEnabled()"
+                            :class="enableFrames ? 'bg-indigo-500/30 text-indigo-200 border-indigo-500/60 shadow-[0_0_10px_rgba(99,102,241,0.2)]' : 'text-slate-500 border-white/10 hover:border-white/25'"
+                            class="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold border rounded-lg transition-all transform active:scale-95">
+                            <span class="material-symbols-outlined text-base">photo_library</span>
+                            首尾帧
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 展开区：模型专有参数 (不再包含首尾帧上传) -->
+                <div x-show="showAdvancedConfig" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 -translate-y-1"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 translate-y-0"
+                    x-transition:leave-end="opacity-0 -translate-y-1" class="px-5 pb-3">
+                    <div class="flex gap-4 items-start">
+                        <!-- 模型专有参数 (seedance-1.5-pro) -->
+                        <div x-show="selectedModel === 'seedance-1.5-pro'"
+                            class="flex-1 grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-950/40 border border-white/5">
+                            <!-- Service Tier -->
+                            <div>
+                                <label class="block text-[10px] font-label text-slate-500 uppercase mb-1.5">Service
+                                    Tier</label>
+                                <select x-model="params.service_tier" :disabled="params.draft"
+                                    class="w-full bg-slate-950/60 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-indigo-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <option value="default">default</option>
+                                    <option value="flex">flex</option>
+                                </select>
+                            </div>
+                            <!-- Seed -->
+                            <div>
+                                <label class="block text-[10px] font-label text-slate-500 uppercase mb-1.5">Seed
+                                    (可选)</label>
+                                <input x-model="params.seed" type="number" min="0" step="1" placeholder="留空随机"
+                                    class="w-full bg-slate-950/60 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-indigo-100" />
+                            </div>
+                            <!-- 固定镜头 -->
+                            <div
+                                class="flex items-center justify-between bg-slate-950/60 border border-white/10 rounded-lg px-3 py-2">
+                                <span class="text-[11px] font-label text-indigo-100 uppercase">固定镜头</span>
+                                <button @click="params.camera_fixed = !params.camera_fixed"
+                                    :class="params.camera_fixed ? 'bg-indigo-500' : 'bg-slate-800'"
+                                    class="h-4 w-7 rounded-full flex items-center px-0.5 transition-colors">
+                                    <div :class="params.camera_fixed ? 'translate-x-3' : 'translate-x-0'"
+                                        class="h-3 w-3 bg-white rounded-full transition"></div>
+                                </button>
+                            </div>
+                            <!-- 返回尾帧 -->
+                            <div
+                                class="flex items-center justify-between bg-slate-950/60 border border-white/10 rounded-lg px-3 py-2">
+                                <span class="text-[11px] font-label text-indigo-100 uppercase">返回尾帧</span>
+                                <button @click="params.return_last_frame = !params.return_last_frame"
+                                    :disabled="params.draft"
+                                    :class="params.return_last_frame ? 'bg-indigo-500' : 'bg-slate-800'"
+                                    class="h-4 w-7 rounded-full flex items-center px-0.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <div :class="params.return_last_frame ? 'translate-x-3' : 'translate-x-0'"
+                                        class="h-3 w-3 bg-white rounded-full transition"></div>
+                                </button>
+                            </div>
+                            <!-- Draft 模式 (全宽) -->
+                            <div
+                                class="col-span-2 flex items-center justify-between bg-slate-950/60 border border-white/10 rounded-lg px-3 py-2">
+                                <span class="text-[11px] font-label text-indigo-100 uppercase">Draft 样片模式</span>
+                                <button @click="toggleDraftMode()"
+                                    :class="params.draft ? 'bg-indigo-500' : 'bg-slate-800'"
+                                    class="h-4 w-7 rounded-full flex items-center px-0.5 transition-colors">
+                                    <div :class="params.draft ? 'translate-x-3' : 'translate-x-0'"
+                                        class="h-3 w-3 bg-white rounded-full transition"></div>
+                                </button>
+                            </div>
+                            <!-- Draft 提示 -->
+                            <div x-show="params.draft" class="col-span-2 text-[10px] text-amber-300/90 font-label">
+                                Draft 已启用：分辨率固定 480p，已禁用返回尾帧，service_tier 固定 default。
+                            </div>
+                        </div>
+
+                        <!-- 过期秒数 (seedance-1.5-pro only) -->
+                        <div x-show="selectedModel === 'seedance-1.5-pro'" class="shrink-0 w-36">
+                            <label class="block text-[10px] font-label text-slate-500 uppercase mb-1.5">过期秒数</label>
+                            <input x-model="params.execution_expires_after" type="number" min="3600" max="259200"
+                                step="1"
+                                class="w-full bg-slate-950/60 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-indigo-100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== END Advanced Configuration ===== -->
+
+            <div class="p-5 bg-surface-container-low border-t border-white/5">
+                <!-- Media references area -->
+                <div class="mb-3 rounded-xl border border-white/10 bg-slate-950/30 p-3"
+                    @dragover.prevent="$event.currentTarget.classList.add('border-indigo-500/50')"
+                    @dragleave.prevent="$event.currentTarget.classList.remove('border-indigo-500/50')"
+                    @drop.prevent="handleDrop($event); $event.currentTarget.classList.remove('border-indigo-500/50')">
+
+                    <div class="mb-2 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm text-indigo-300">alternate_email</span>
+                            <span class="text-[10px] font-label text-indigo-100 uppercase tracking-wide">媒体引用</span>
+                            <span class="text-[10px] text-slate-500">点击以插入，或拖放媒体到当前区域</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2" x-data="{ showAddMenu: false }">
+                        <!-- 已有的媒体引用 -->
+                        <template x-for="ref in cachedMentionableRefs" :key="ref.key">
+                            <div class="relative group">
+                                <button type="button" @click="insertMentionToken(ref.token)"
+                                    class="group inline-flex items-center gap-2 rounded-[8px] border border-indigo-500/20 bg-indigo-500/10 pl-2 pr-3 py-1.5 hover:bg-indigo-500/20 transition-colors">
+                                    <template x-if="ref.type === 'image'">
+                                        <img :src="ref.preview"
+                                            class="h-7 w-7 rounded-[4px] object-cover border border-white/10" />
+                                    </template>
+                                    <template x-if="ref.type === 'video'">
+                                        <div
+                                            class="relative h-7 w-7 rounded-[4px] overflow-hidden border border-white/10 bg-black">
+                                            <template x-if="ref.isProcessing">
+                                                <div
+                                                    class="absolute inset-0 flex flex-col items-center justify-center bg-slate-800">
+                                                    <span
+                                                        class="material-symbols-outlined text-[12px] text-indigo-400 animate-spin">sync</span>
+                                                    <span class="text-[8px] font-mono text-indigo-200 mt-0.5"
+                                                        x-text="ref.progress + '%'"></span>
+                                                </div>
+                                            </template>
+                                            <template x-if="!ref.isProcessing">
+                                                <div class="absolute inset-0">
+                                                    <template
+                                                        x-if="ref.preview && !ref.preview.startsWith('blob:video/') && !ref.preview.endsWith('.mp4')">
+                                                        <img :src="ref.preview" class="h-full w-full object-cover" />
+                                                    </template>
+                                                    <template
+                                                        x-if="!ref.preview || ref.preview.startsWith('blob:video/') || ref.preview.endsWith('.mp4')">
+                                                        <video :src="ref.preview" class="h-full w-full object-cover"
+                                                            preload="none" muted></video>
+                                                    </template>
+                                                    <span
+                                                        class="absolute inset-0 flex items-center justify-center bg-black/35 material-symbols-outlined text-[13px] text-white">play_arrow</span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                    <template x-if="ref.type === 'audio'">
+                                        <div
+                                            class="h-7 w-7 rounded-[4px] border border-white/10 bg-slate-900/80 flex items-center justify-center">
+                                            <span
+                                                class="material-symbols-outlined text-[14px] text-white">graphic_eq</span>
+                                        </div>
+                                    </template>
+                                    <span class="text-[11px] font-label text-indigo-100" x-text="ref.token"></span>
+                                </button>
+                                <!-- 删除按钮 -->
+                                <button @click.stop="removeReference(ref)"
+                                    class="absolute -top-2 -right-2 h-5 w-5 bg-error text-on-error rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 hover:scale-110 transition-all shadow-lg z-10">
+                                    <span class="material-symbols-outlined text-[12px]">close</span>
+                                </button>
+                            </div>
+                        </template>
+
+                        <!-- 添加按钮 -->
+                        <div class="relative">
+                            <button type="button" @click="showAddMenu = !showAddMenu"
+                                @click.outside="showAddMenu = false"
+                                class="inline-flex items-center gap-1 rounded-lg border border-white/10 border-dashed bg-white/5 px-4 py-2 hover:bg-white/10 hover:border-white/20 transition-colors text-slate-300 relative group min-h-[42px]">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                                <span class="text-[11px] font-label uppercase">添加</span>
+                                <!-- 小提示 -->
+                                <div
+                                    class="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 whitespace-nowrap bg-black text-white text-[10px] px-2 py-1 rounded pointer-events-none transition-opacity">
+                                    上传或选自云端</div>
+                            </button>
+
+                            <!-- 下拉菜单 -->
+                            <div x-show="showAddMenu" x-transition.opacity.duration.150ms style="display: none;"
+                                class="absolute left-0 top-full mt-2 w-32 bg-slate-800 border border-white/10 rounded-lg shadow-[0_4px_24px_rgba(0,0,0,0.6)] z-[50] overflow-hidden text-xs font-label">
+                                <label
+                                    class="w-full text-left px-4 py-2.5 flex items-center gap-2 hover:bg-white/10 cursor-pointer text-slate-200 transition-colors">
+                                    <span class="material-symbols-outlined text-[14px] text-indigo-400">upload</span>
+                                    上传文件
+                                    <input type="file" accept="image/*,video/*,audio/*" multiple
+                                        @change="handleFileSelect($event); showAddMenu = false" class="hidden" />
+                                </label>
+                                <div class="h-px bg-white/5"></div>
+                                <button type="button" @click="openMediaLibraryPicker(); showAddMenu = false"
+                                    class="w-full text-left px-4 py-2.5 flex items-center gap-2 hover:bg-white/10 text-slate-200 transition-colors">
+                                    <span
+                                        class="material-symbols-outlined text-[14px] text-teal-400">photo_library</span>
+                                    媒体库
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative w-full rounded-xl bg-surface-container-lowest border border-outline-variant shadow-inner focus-within:ring-4 focus-within:ring-primary/10 focus-within:border-primary/40 transition-all overflow-hidden"
+                    @dragover.prevent="$event.currentTarget.classList.add('drag-over')"
+                    @dragleave.prevent="$event.currentTarget.classList.remove('drag-over')"
+                    @drop.prevent="handleDrop($event); $event.currentTarget.classList.remove('drag-over')">
+
+                    <div
+                        class="relative w-full max-h-[600px] overflow-y-auto overflow-x-hidden custom-scrollbar bg-transparent">
+                        <div class="relative w-full min-h-[140px]">
+                            <!-- Backdrop: Renders the highlighted text -->
+                            <div class="absolute inset-x-0 inset-y-0 p-5 pr-24 text-[15px] pointer-events-none text-indigo-50 overflow-hidden break-words whitespace-pre-wrap leading-relaxed"
+                                aria-hidden="true" x-html="getHighlightedPrompt()"></div>
+
+                            <!-- Transparent Textarea -->
+                            <textarea id="generatorPromptInput" x-ref="promptInput" x-model="promptText"
+                                @input="handlePromptInput($event)" @focus="handlePromptFocus()"
+                                @blur="handlePromptBlur()" @keydown="handlePromptKeydown($event)"
+                                @keydown.enter.meta="submitTask()" @keydown.enter.ctrl="submitTask()"
+                                @paste="handlePaste($event)"
+                                class="relative w-full min-h-[140px] bg-transparent text-transparent caret-indigo-50 p-5 pr-24 text-[15px] leading-relaxed resize-none border-none outline-none focus:ring-0 overflow-hidden block"
+                                placeholder="" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Fake Placeholder -->
+                    <div x-show="!promptText"
+                        class="absolute inset-x-5 top-5 pr-24 pointer-events-none text-slate-500 text-[15px] leading-relaxed">
+                        描述你想生成的视频... 输入 @ 可拉取媒体</div>
+
+                    <!-- 拖拽提示手柄 (视觉增强) -->
+                    <div
+                        class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 flex flex-col gap-[1px] justify-center items-center opacity-20 pointer-events-none mb-1">
+                        <div class="w-full h-[1px] bg-white"></div>
+                        <div class="w-full h-[1px] bg-white"></div>
+                    </div>
+
+                    <div x-show="mentionMenuVisible"
+                        class="absolute z-30 left-0 right-16 bottom-[112px] rounded-xl border border-white/10 bg-slate-950/95 shadow-2xl backdrop-blur-md overflow-hidden">
+                        <div
+                            class="px-3 py-2 text-[10px] font-label text-slate-400 border-b border-white/5 flex items-center justify-between">
+                            <span>@ 媒体候选（先当前上传，再媒体库）</span>
+                            <span x-show="mentionLibraryLoading" class="text-indigo-300">加载中...</span>
+                        </div>
+                        <div class="max-h-64 overflow-y-auto">
+                            <template x-if="mentionMenuItems.length === 0 && !mentionLibraryLoading">
+                                <div class="px-3 py-4 text-xs text-slate-500">没有匹配媒体</div>
+                            </template>
+                            <template x-for="(item, idx) in mentionMenuItems" :key="item.key">
+                                <button type="button" @mousedown.prevent="insertMentionToken(item.token)"
+                                    :class="idx === mentionMenuActiveIndex ? 'bg-indigo-500/20' : 'hover:bg-white/5'"
+                                    class="w-full text-left px-3 py-2.5 flex items-center gap-2 border-b border-white/5 transition-colors">
+                                    <template x-if="item.type === 'image'">
+                                        <img :src="item.preview"
+                                            class="h-8 w-8 rounded object-cover border border-white/10" />
+                                    </template>
+                                    <template x-if="item.type === 'video'">
+                                        <div
+                                            class="relative h-8 w-8 rounded overflow-hidden border border-white/10 bg-black">
+                                            <template
+                                                x-if="item.preview && !item.preview.startsWith('blob:video/') && !item.preview.endsWith('.mp4')">
+                                                <img :src="item.preview" class="h-full w-full object-cover" />
+                                            </template>
+                                            <template
+                                                x-if="!item.preview || item.preview.startsWith('blob:video/') || item.preview.endsWith('.mp4')">
+                                                <video :src="item.preview" class="h-full w-full object-cover"
+                                                    preload="none" muted></video>
+                                            </template>
+                                            <span
+                                                class="absolute inset-0 flex items-center justify-center bg-black/40 material-symbols-outlined text-[13px] text-white">play_arrow</span>
+                                        </div>
+                                    </template>
+                                    <template x-if="item.type === 'audio'">
+                                        <div
+                                            class="h-8 w-8 rounded border border-white/10 bg-slate-900/80 flex items-center justify-center">
+                                            <span
+                                                class="material-symbols-outlined text-[13px] text-white">graphic_eq</span>
+                                        </div>
+                                    </template>
+                                    <div class="min-w-0 flex-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-xs text-indigo-100 font-label" x-text="item.token"></span>
+                                            <span
+                                                :class="item.source === 'current' ? 'text-emerald-300' : 'text-slate-400'"
+                                                class="text-[10px]"
+                                                x-text="item.source === 'current' ? '当前' : '媒体库'"></span>
+                                        </div>
+                                        <div class="truncate text-[11px] text-slate-400" x-text="item.display"></div>
+                                    </div>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-3 right-3 flex items-center gap-1">
+                        <label class="p-2 text-slate-500 hover:text-primary transition-colors cursor-pointer"
+                            title="添加参考素材">
+                            <span class="material-symbols-outlined">attach_file</span>
+                            <input type="file" accept="image/*,video/*,audio/*" multiple
+                                @change="handleFileSelect($event)" class="hidden" />
+                        </label>
+                        <button @click="submitTask()"
+                            :disabled="generating || !currentModelCapacity.available || ((!promptText || !promptText.trim()) && attachments.length === 0 && !firstFrame && !lastFrame)"
+                            class="h-10 w-10 flex items-center justify-center bg-primary text-on-primary-container rounded-lg shadow-lg shadow-indigo-500/20 active:scale-90 transition-transform disabled:opacity-30 disabled:cursor-not-allowed"
+                            :title="!currentModelCapacity.available ? '队列已满，请稍后再试' : '发送'">
+                            <span class="material-symbols-outlined">send</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-label text-slate-500/80">
+                    <span class="flex items-center gap-1.5 hover:text-slate-400 transition-colors">
+                        <span class="material-symbols-outlined text-xs">info</span>
+                        Ctrl+Enter 发送
+                    </span>
+                    <span class="text-slate-700">•</span>
+                    <span class="hover:text-slate-400 transition-colors">拖拽图片/视频/音频作为参考素材</span>
+                    <span class="text-slate-700">•</span>
+                    <span class="hover:text-slate-400 transition-colors">输入 @ 拉取媒体引用</span>
+                    <span class="text-slate-700">•</span>
+                    <span class="flex items-center gap-1 hover:text-indigo-300 transition-colors">
+                        <span class="material-symbols-outlined text-[10px]">model_training</span>
+                        <span x-text="'当前模型: ' + (models[selectedModel]?.name || '')"></span>
+                    </span>
+                </div>
+            </div>
+            <!-- Media Library Picker Modal (Refactored Mini Version) -->
+            <div x-show="showMediaLibraryPicker" style="display: none;"
+                class="fixed inset-0 z-[110] flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+                <div @click.outside="showMediaLibraryPicker = false"
+                    class="bg-surface-container-high border border-white/10 rounded-2xl w-full max-w-5xl flex flex-col shadow-2xl overflow-hidden h-[85vh]"
+                    x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100">
+
+                    <!-- Header -->
+                    <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-slate-900/50">
+                        <div>
+                            <h3 class="text-indigo-50 font-headline font-bold text-lg flex items-center gap-2">
+                                <span class="material-symbols-outlined text-teal-400">photo_library</span>
+                                媒体资产库
+                            </h3>
+                            <p class="text-[10px] text-slate-500 font-label mt-0.5 uppercase tracking-wider"
+                                x-text="`已选择 ${selectedLibraryItems.length} 个项目`"></p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button @click="selectedLibraryItems = []" x-show="selectedLibraryItems.length > 0"
+                                class="text-xs text-slate-400 hover:text-white transition-colors">
+                                清除选择
+                            </button>
+                            <button @click="showMediaLibraryPicker = false"
+                                class="text-slate-400 hover:text-white transition-colors h-8 w-8 flex justify-center items-center rounded-lg hover:bg-white/5">
+                                <span class="material-symbols-outlined text-lg">close</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Toolbar (Filters) -->
+                    <div
+                        class="px-6 py-3 border-b border-white/5 flex flex-wrap items-center justify-between gap-4 bg-slate-900/30">
+                        <div class="flex gap-4">
+                            <div class="flex bg-slate-950/40 p-1 rounded-lg border border-white/5">
+                                <button @click="changeMediaType(null)"
+                                    :class="filterMediaType === null ? 'bg-indigo-500/20 text-indigo-300' : 'text-slate-500 hover:text-slate-300'"
+                                    class="px-3 py-1 rounded-md text-[10px] font-label font-bold transition-colors">全部类型</button>
+                                <button @click="changeMediaType('video')"
+                                    :class="filterMediaType === 'video' ? 'bg-indigo-500/20 text-indigo-300' : 'text-slate-500 hover:text-slate-300'"
+                                    class="px-3 py-1 rounded-md text-[10px] font-label font-bold transition-colors">视频</button>
+                                <button @click="changeMediaType('image')"
+                                    :class="filterMediaType === 'image' ? 'bg-indigo-500/20 text-indigo-300' : 'text-slate-500 hover:text-slate-300'"
+                                    class="px-3 py-1 rounded-md text-[10px] font-label font-bold transition-colors">图片</button>
+                                <button @click="changeMediaType('audio')"
+                                    :class="filterMediaType === 'audio' ? 'bg-indigo-500/20 text-indigo-300' : 'text-slate-500 hover:text-slate-300'"
+                                    class="px-3 py-1 rounded-md text-[10px] font-label font-bold transition-colors">音频</button>
+                            </div>
+                            <div class="flex bg-slate-950/40 p-1 rounded-lg border border-white/5">
+                                <button @click="changeMediaSource(null)"
+                                    :class="filterMediaSource === null ? 'bg-slate-700/40 text-slate-300' : 'text-slate-500 hover:text-slate-300'"
+                                    class="px-3 py-1 rounded-md text-[10px] font-label font-bold transition-colors">全部来源</button>
+                                <button @click="changeMediaSource('uploaded')"
+                                    :class="filterMediaSource === 'uploaded' ? 'bg-slate-700/40 text-slate-300' : 'text-slate-500 hover:text-slate-300'"
+                                    class="px-3 py-1 rounded-md text-[10px] font-label font-bold transition-colors">上传</button>
+                                <button @click="changeMediaSource('generated')"
+                                    :class="filterMediaSource === 'generated' ? 'bg-slate-700/40 text-slate-300' : 'text-slate-500 hover:text-slate-300'"
+                                    class="px-3 py-1 rounded-md text-[10px] font-label font-bold transition-colors">生成</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-[10px] text-slate-500 font-label">
+                            <span
+                                x-text="`${mediaStats.total_images} 图 • ${mediaStats.total_videos} 视 • ${mediaStats.total_audios || 0} 音`"></span>
+                        </div>
+                    </div>
+
+                    <!-- Content Window -->
+                    <div class="flex-1 overflow-y-auto p-6 bg-slate-950/20 custom-scrollbar">
+                        <div x-show="!mediaLibraryLoaded" class="flex justify-center py-20">
+                            <div class="flex flex-col items-center gap-4">
+                                <svg class="animate-spin h-8 w-8 text-indigo-500" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                                <span class="text-indigo-300 animate-pulse text-xs font-label">正在连接云端资产库...</span>
+                            </div>
+                        </div>
+
+                        <div x-show="mediaLibraryLoaded && mediaLibrary.length === 0"
+                            class="flex justify-center flex-col items-center py-20 text-slate-500 font-label gap-4">
+                            <div class="h-16 w-16 rounded-full bg-white/5 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-4xl opacity-30">cloud_off</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-sm text-slate-400">未找到符合条件的媒体文件</p>
+                                <p class="text-[10px] mt-1">请尝试更换筛选条件或上传新资源</p>
+                            </div>
+                        </div>
+
+                        <div x-show="mediaLibraryLoaded && mediaLibrary.length > 0"
+                            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                            <template x-for="item in mediaLibrary" :key="item.id">
+                                <div @click="toggleLibraryItemSelection(item)"
+                                    class="group relative aspect-square rounded-xl bg-slate-900 border transition-all overflow-hidden flex flex-col cursor-pointer"
+                                    :class="selectedLibraryItems.some(i => i.id === item.id) ? 'border-emerald-500 ring-2 ring-emerald-500/30' : 'border-white/5 hover:border-white/20'">
+
+                                    <!-- Thumbnail -->
+                                    <div class="flex-1 relative overflow-hidden">
+                                        <template x-if="item.file_type === 'image'">
+                                            <img :src="item.thumbnail_signed_url || item.signed_url"
+                                                class="w-full h-full object-cover transition-transform group-hover:scale-110"
+                                                loading="lazy" />
+                                        </template>
+                                        <template x-if="item.file_type === 'video'">
+                                            <div class="w-full h-full bg-black relative">
+                                                <video :src="item.thumbnail_signed_url || item.signed_url"
+                                                    class="w-full h-full object-cover" muted preload="none"></video>
+                                                <span
+                                                    class="absolute inset-0 flex items-center justify-center bg-black/20 material-symbols-outlined text-white text-[1.5rem] group-hover:bg-black/0 transition-all">play_circle</span>
+                                            </div>
+                                        </template>
+                                        <template x-if="item.file_type === 'audio'">
+                                            <div
+                                                class="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
+                                                <span
+                                                    class="material-symbols-outlined text-slate-400 group-hover:text-indigo-300 text-3xl transition-colors">graphic_eq</span>
+                                            </div>
+                                        </template>
+
+                                        <!-- Badges -->
+                                        <div class="absolute top-1.5 left-1.5 flex flex-col gap-1">
+                                            <span x-show="item.file_type === 'video'"
+                                                class="bg-black/60 backdrop-blur-md text-[8px] font-bold px-1.5 py-0.5 rounded text-primary"
+                                                x-text="formatMediaResolution(item)"></span>
+                                            <span x-show="item.file_type === 'video' || item.file_type === 'audio'"
+                                                class="bg-black/60 backdrop-blur-md text-[8px] font-bold px-1.5 py-0.5 rounded text-white"
+                                                x-text="formatMediaDuration(item)"></span>
+                                        </div>
+
+                                        <!-- Selection Indicator -->
+                                        <div class="absolute top-1.5 right-1.5 h-5 w-5 rounded-full border-2 flex items-center justify-center transition-all bg-black/20 backdrop-blur-sm"
+                                            :class="selectedLibraryItems.some(i => i.id === item.id) ? 'bg-emerald-500 border-emerald-500' : 'border-white/30'">
+                                            <span class="material-symbols-outlined text-white text-sm"
+                                                x-show="selectedLibraryItems.some(i => i.id === item.id)">check</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Label -->
+                                    <div class="h-8 bg-slate-950/80 px-2 flex items-center border-t border-white/5">
+                                        <span class="text-[9px] font-label text-slate-400 truncate w-full"
+                                            x-text="item.name"></span>
+                                    </div>
+
+                                    <!-- Overlay Source -->
+                                    <div
+                                        class="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span
+                                            class="text-[8px] px-1 bg-white/10 backdrop-blur-md rounded text-slate-500 uppercase"
+                                            x-text="item.source_type === 'generated' ? '生成' : '上传'"></span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div
+                        class="px-6 py-4 border-t border-white/10 bg-slate-900/50 flex items-center justify-between shrink-0">
+                        <!-- Pagination -->
+                        <div class="flex items-center gap-3">
+                            <button @click="prevPage()" :disabled="currentPage <= 1"
+                                class="h-8 px-3 rounded-lg bg-white/5 text-[10px] text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">chevron_left</span> 上一页
+                            </button>
+                            <span
+                                class="text-[10px] text-slate-500 font-label bg-black/20 py-1.5 px-3 rounded-lg border border-white/5">
+                                <span class="text-slate-400">PAGE</span> <span x-text="currentPage"
+                                    class="text-indigo-300 font-bold ml-0.5"></span>
+                            </span>
+                            <button @click="nextPage()" :disabled="!hasMore"
+                                class="h-8 px-3 rounded-lg bg-white/5 text-[10px] text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-1">
+                                下一页 <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                            </button>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center gap-3">
+                            <button @click="showMediaLibraryPicker = false"
+                                class="h-9 px-5 rounded-lg text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                                取消
+                            </button>
+                            <button @click="addSelectedReferencesFromLibrary()"
+                                :disabled="selectedLibraryItems.length === 0"
+                                class="h-9 px-6 rounded-lg bg-primary text-on-primary-container text-xs font-bold shadow-lg shadow-primary/20 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">add_circle</span>
+                                <span
+                                    x-text="`确认添加 ${selectedLibraryItems.length > 0 ? '(' + selectedLibraryItems.length + ')' : ''}`"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Custom Confirmation Modal -->
+            <div x-show="confirmModal.show" class="fixed inset-0 z-[200] flex items-center justify-center p-4"
+                x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" style="display: none;">
+                <div class="fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+                <div @click.outside="confirmModal.resolve(false); confirmModal.show = false"
+                    class="relative bg-surface-container-high border border-white/10 rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl transform transition-all"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                    x-transition:enter-end="opacity-100 scale-100 translate-y-0">
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="h-10 w-10 rounded-full bg-amber-500/15 flex items-center justify-center text-amber-500">
+                                <span class="material-symbols-outlined">warning</span>
+                            </div>
+                            <h3 class="text-indigo-50 font-headline font-bold text-lg" x-text="confirmModal.title"></h3>
+                        </div>
+                        <div class="text-slate-300 text-sm leading-relaxed" x-html="confirmModal.message"></div>
+                    </div>
+                    <div class="px-6 py-4 bg-slate-900/50 flex items-center justify-end gap-3">
+                        <button @click="confirmModal.resolve(false); confirmModal.show = false"
+                            class="h-9 px-5 rounded-lg text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all"
+                            x-text="confirmModal.cancelText || '取消'">
+                        </button>
+                        <button @click="confirmModal.resolve(true); confirmModal.show = false"
+                            class="h-9 px-6 rounded-lg bg-primary text-on-primary-container text-xs font-bold shadow-lg shadow-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                            x-text="confirmModal.confirmText || '确定'">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</template>

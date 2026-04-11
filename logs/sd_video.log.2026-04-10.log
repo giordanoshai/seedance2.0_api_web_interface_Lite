@@ -1,0 +1,787 @@
+2026-04-10 22:15:31,962 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:15:31,963 - INFO - [daily_logger] - [task_worker.py:191:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:19:26,029 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:19:26,030 - INFO - [daily_logger] - [task_worker.py:191:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:22:18,169 - INFO - [daily_logger] - [tasks.py:77:create_task] - [创建任务] 模型: seedance-2.0, 提示词: 让@参考图片1 中的元素动起来。...
+2026-04-10 22:22:18,170 - INFO - [daily_logger] - [tasks.py:82:create_task] - 创建任务原始 Payload: {"model":"seedance-2.0","prompt":"让@参考图片1 中的元素动起来。","first_frame_path":null,"last_frame_path":null,"reference_image_path":"local_user/upload/1775830936097_image.png","reference_video_path":null,"reference_audio_path":null,"reference_inputs":[{"type":"reference_image","storage_path":"local_user/upload/1775830936097_image.png","media_type":null}],"ratio":"16:9","duration":4,"generate_audio":true,"watermark":false,"return_last_frame":false,"draft":false,"resolution":"720p","seed":null,"camera_fixed":null,"service_tier":null,"execution_expires_after":null,"conversation_id":"6042c516-5599-4edc-8481-644be005ca45","user_id":null,"access_token":null}
+2026-04-10 22:22:20,708 - INFO - [daily_logger] - [volcano_api.py:332:create_video_task] - [Volcano API] 创建任务 | 模型: ep-20260327104025-mg9cr | 比例: 16:9 | 时长: 4s | 参考输入: 1个
+2026-04-10 22:22:20,708 - INFO - [daily_logger] - [volcano_api.py:409:create_video_task] - [Volcano API] Seedance 2.0 准备提交 | 映射后提示词: 让图片1 中的元素动起来。... | 原始Token: ['@参考图片1']
+2026-04-10 22:22:23,877 - INFO - [daily_logger] - [volcano_api.py:421:create_video_task] - [Volcano API] Seedance 2.0 任务创建成功 | 任务ID: cgt-20260410222222-zk7zn
+2026-04-10 22:22:23,879 - INFO - [daily_logger] - [database.py:150:create_task_record] - [DB] 创建任务记录: model=ep-20260327104025-mg9cr, volcano_task_id=cgt-20260410222222-zk7zn
+2026-04-10 22:22:23,903 - INFO - [daily_logger] - [database.py:170:create_task_record] - [DB] 任务记录创建完成: local_task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, volcano_task_id=cgt-20260410222222-zk7zn
+2026-04-10 22:22:23,904 - INFO - [daily_logger] - [tasks.py:422:create_task] - [任务创建成功] 任务ID: cgt-20260410222222-zk7zn | 数据库记录: 2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:22:26,031 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:22:29,833 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:22:31,046 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:22:31,999 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:22:34,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:22:36,055 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:22:37,596 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:22:39,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:22:41,047 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:22:43,219 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:22:43,948 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:22:45,302 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:22:48,859 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:22:49,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:22:51,036 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:22:54,553 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:22:54,953 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:22:56,170 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:22:59,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:00,107 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:01,105 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:04,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:05,801 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:06,224 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:09,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:11,099 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:11,341 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:14,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:16,065 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:17,201 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:19,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:21,095 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:22,568 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:24,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:26,102 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:28,435 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:29,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:31,090 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:33,836 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:34,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:36,081 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:39,683 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:40,077 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:41,353 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:44,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:45,097 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:46,107 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:50,892 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:52,576 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:53,988 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:54,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:23:56,045 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:23:56,387 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:23:59,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:01,055 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:02,139 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:04,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:06,115 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:07,632 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:09,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:11,081 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:13,476 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:14,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:16,065 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:18,875 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:19,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:21,065 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:24,737 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:25,134 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:26,390 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:29,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:30,157 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:31,104 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:34,805 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:36,017 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:36,572 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:39,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:41,246 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:41,391 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:44,834 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:46,171 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:47,394 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:49,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:51,303 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:52,827 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:54,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:24:56,174 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:24:58,734 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:24:59,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:25:01,137 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:25:04,284 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:25:04,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:25:06,107 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:25:09,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:25:10,339 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:25:11,172 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, status=running
+2026-04-10 22:25:14,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31
+2026-04-10 22:25:15,403 - INFO - [daily_logger] - [task_worker.py:171:_process_task] - [worker] 任务完成: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31 -> videos/local_user/1775831113_2c09a042-5025-4afd-a6da-6d0dce38aa31.mp4
+2026-04-10 22:25:18,858 - INFO - [daily_logger] - [tasks.py:509:check_status] - 任务转存成功: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, storage_path=videos/local_user/2c09a042-5025-4afd-a6da-6d0dce38aa31.mp4
+2026-04-10 22:25:19,085 - INFO - [daily_logger] - [tasks.py:548:check_status] - 视频缩略图提取并上传成功: task_id=2c09a042-5025-4afd-a6da-6d0dce38aa31, path=local_user/thumbnails/2c09a042-5025-4afd-a6da-6d0dce38aa31.jpg
+2026-04-10 22:27:54,303 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:27:54,304 - INFO - [daily_logger] - [task_worker.py:191:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:28:02,096 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:28:02,097 - INFO - [daily_logger] - [task_worker.py:191:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:28:14,953 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:28:14,954 - INFO - [daily_logger] - [task_worker.py:191:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:28:27,875 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:28:27,876 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:28:42,456 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:28:42,456 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:29:00,448 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:29:00,448 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:29:13,844 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:29:13,845 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:32:03,194 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:32:03,195 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:33:19,006 - INFO - [daily_logger] - [tasks.py:77:create_task] - [创建任务] 模型: seedance-2.0, 提示词: 让@参考图片1 光影随动。...
+2026-04-10 22:33:19,006 - INFO - [daily_logger] - [tasks.py:82:create_task] - 创建任务原始 Payload: {"model":"seedance-2.0","prompt":"让@参考图片1 光影随动。","first_frame_path":null,"last_frame_path":null,"reference_image_path":"local_user/upload/1775831597068_image.png","reference_video_path":null,"reference_audio_path":null,"reference_inputs":[{"type":"reference_image","storage_path":"local_user/upload/1775831597068_image.png","media_type":null}],"ratio":"16:9","duration":4,"generate_audio":true,"watermark":false,"return_last_frame":false,"draft":false,"resolution":"720p","seed":null,"camera_fixed":null,"service_tier":null,"execution_expires_after":null,"conversation_id":"6042c516-5599-4edc-8481-644be005ca45","user_id":null,"access_token":null}
+2026-04-10 22:33:20,999 - INFO - [daily_logger] - [volcano_api.py:332:create_video_task] - [Volcano API] 创建任务 | 模型: ep-20260327104025-mg9cr | 比例: 16:9 | 时长: 4s | 参考输入: 1个
+2026-04-10 22:33:20,999 - INFO - [daily_logger] - [volcano_api.py:409:create_video_task] - [Volcano API] Seedance 2.0 准备提交 | 映射后提示词: 让图片1 光影随动。... | 原始Token: ['@参考图片1']
+2026-04-10 22:33:23,815 - INFO - [daily_logger] - [volcano_api.py:421:create_video_task] - [Volcano API] Seedance 2.0 任务创建成功 | 任务ID: cgt-20260410223322-x5qnb
+2026-04-10 22:33:23,816 - INFO - [daily_logger] - [database.py:150:create_task_record] - [DB] 创建任务记录: model=ep-20260327104025-mg9cr, volcano_task_id=cgt-20260410223322-x5qnb
+2026-04-10 22:33:23,838 - INFO - [daily_logger] - [database.py:170:create_task_record] - [DB] 任务记录创建完成: local_task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, volcano_task_id=cgt-20260410223322-x5qnb
+2026-04-10 22:33:23,838 - INFO - [daily_logger] - [tasks.py:422:create_task] - [任务创建成功] 任务ID: cgt-20260410223322-x5qnb | 数据库记录: d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:25,463 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:33:28,875 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:30,177 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:33:33,230 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:33:33,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:35,150 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:33:36,691 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:33:38,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:40,141 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:33:43,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:44,514 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:33:45,189 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:33:47,971 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:33:48,874 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:50,180 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:33:53,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:55,166 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:33:55,809 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:33:58,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:33:59,351 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:00,182 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:03,874 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:05,193 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:07,111 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:08,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:10,257 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:10,653 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:13,872 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:15,258 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:18,405 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:18,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:20,246 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:21,940 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:23,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:25,220 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:28,874 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:29,751 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:30,179 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:33,263 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:33,872 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:35,152 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:38,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:40,154 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:41,005 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:43,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:44,538 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:45,179 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:48,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:50,165 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:52,252 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:53,872 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:34:55,197 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:34:55,856 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:34:58,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:00,226 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:03,549 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:03,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:05,303 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:07,115 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:08,873 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:10,177 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:14,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:15,011 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:16,268 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:18,378 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:19,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:21,168 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:24,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:26,148 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:26,441 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:29,768 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:30,268 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:31,597 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:34,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:36,117 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:37,864 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:39,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:41,135 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:41,642 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:44,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:46,244 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:49,110 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:49,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:51,166 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, status=running
+2026-04-10 22:35:52,489 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:35:54,839 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a
+2026-04-10 22:35:59,308 - INFO - [daily_logger] - [task_worker.py:171:_process_task] - [worker] 任务完成: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a -> videos/local_user/1775831755_d60826c8-4fed-412c-a7b9-542b2a80de1a.mp4
+2026-04-10 22:35:59,787 - INFO - [daily_logger] - [tasks.py:509:check_status] - 任务转存成功: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, storage_path=videos/local_user/d60826c8-4fed-412c-a7b9-542b2a80de1a.mp4
+2026-04-10 22:36:00,042 - INFO - [daily_logger] - [tasks.py:548:check_status] - 视频缩略图提取并上传成功: task_id=d60826c8-4fed-412c-a7b9-542b2a80de1a, path=local_user/thumbnails/d60826c8-4fed-412c-a7b9-542b2a80de1a.jpg
+2026-04-10 22:38:02,817 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:38:02,817 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:40:05,902 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:40:05,903 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:41:15,248 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:41:15,248 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:42:03,447 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:42:03,448 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:42:18,180 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:42:18,180 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:42:24,472 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:42:24,472 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 22:44:00,916 - INFO - [daily_logger] - [tasks.py:77:create_task] - [创建任务] 模型: seedance-2.0, 提示词: 微风吹动@参考图片1 中的花，花盘随风飘动，人的头发，裙子也随风飘动。...
+2026-04-10 22:44:00,916 - INFO - [daily_logger] - [tasks.py:82:create_task] - 创建任务原始 Payload: {"model":"seedance-2.0","prompt":"微风吹动@参考图片1 中的花，花盘随风飘动，人的头发，裙子也随风飘动。","first_frame_path":null,"last_frame_path":null,"reference_image_path":"local_user/upload/1775832240556_image.png","reference_video_path":null,"reference_audio_path":null,"reference_inputs":[{"type":"reference_image","storage_path":"local_user/upload/1775832240556_image.png","media_type":null}],"ratio":"9:16","duration":4,"generate_audio":false,"watermark":false,"return_last_frame":false,"draft":false,"resolution":"720p","seed":null,"camera_fixed":null,"service_tier":null,"execution_expires_after":null,"conversation_id":"6042c516-5599-4edc-8481-644be005ca45","user_id":null,"access_token":null}
+2026-04-10 22:44:01,552 - INFO - [daily_logger] - [volcano_api.py:332:create_video_task] - [Volcano API] 创建任务 | 模型: ep-20260327104025-mg9cr | 比例: 9:16 | 时长: 4s | 参考输入: 1个
+2026-04-10 22:44:01,553 - INFO - [daily_logger] - [volcano_api.py:409:create_video_task] - [Volcano API] Seedance 2.0 准备提交 | 映射后提示词: 微风吹动图片1 中的花，花盘随风飘动，人的头发，裙子也随风飘动。... | 原始Token: ['@参考图片1']
+2026-04-10 22:44:03,749 - INFO - [daily_logger] - [volcano_api.py:421:create_video_task] - [Volcano API] Seedance 2.0 任务创建成功 | 任务ID: cgt-20260410224402-68vrp
+2026-04-10 22:44:03,753 - INFO - [daily_logger] - [database.py:150:create_task_record] - [DB] 创建任务记录: model=ep-20260327104025-mg9cr, volcano_task_id=cgt-20260410224402-68vrp
+2026-04-10 22:44:03,767 - INFO - [daily_logger] - [database.py:170:create_task_record] - [DB] 任务记录创建完成: local_task_id=6945fb78-9b57-43b2-941e-c6d565747e52, volcano_task_id=cgt-20260410224402-68vrp
+2026-04-10 22:44:03,767 - INFO - [daily_logger] - [tasks.py:422:create_task] - [任务创建成功] 任务ID: cgt-20260410224402-68vrp | 数据库记录: 6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:04,485 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:08,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:09,398 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:10,157 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:13,800 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:15,122 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:15,823 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:18,800 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:20,124 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:20,691 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:23,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:25,112 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:27,218 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:28,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:30,090 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:31,964 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:33,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:35,098 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:38,525 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:38,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:40,213 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:43,281 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:43,800 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:45,120 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:48,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:49,933 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:50,194 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:53,803 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:44:54,613 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:44:55,144 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:44:58,835 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:00,175 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:01,243 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:03,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:05,141 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:05,870 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:08,833 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:10,223 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:12,599 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:13,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:15,127 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:17,140 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:18,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:20,155 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:23,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:23,872 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:25,316 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:28,419 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:28,891 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:30,150 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:33,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:35,135 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:35,368 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:38,834 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:39,724 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:40,260 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:43,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:45,132 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:46,646 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:48,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:50,159 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:51,049 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:45:53,833 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:45:55,116 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:45:58,012 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:02,359 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:09,322 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:13,647 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:18,833 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:46:20,164 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:46:20,888 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:25,015 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:32,229 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:36,322 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:43,549 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:43,878 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:46:45,243 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:46:47,616 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:48,802 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:46:50,132 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:46:53,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:46:54,947 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:46:55,135 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, status=running
+2026-04-10 22:46:58,801 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=6945fb78-9b57-43b2-941e-c6d565747e52
+2026-04-10 22:46:59,302 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 22:47:02,855 - INFO - [daily_logger] - [tasks.py:509:check_status] - 任务转存成功: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, storage_path=videos/local_user/6945fb78-9b57-43b2-941e-c6d565747e52.mp4
+2026-04-10 22:47:03,365 - INFO - [daily_logger] - [tasks.py:548:check_status] - 视频缩略图提取并上传成功: task_id=6945fb78-9b57-43b2-941e-c6d565747e52, path=local_user/thumbnails/6945fb78-9b57-43b2-941e-c6d565747e52.jpg
+2026-04-10 22:47:03,732 - INFO - [daily_logger] - [task_worker.py:171:_process_task] - [worker] 任务完成: task_id=6945fb78-9b57-43b2-941e-c6d565747e52 -> videos/local_user/1775832422_6945fb78-9b57-43b2-941e-c6d565747e52.mp4
+2026-04-10 22:49:25,045 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 22:49:25,046 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:08:09,526 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:08:09,526 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:11:53,089 - INFO - [daily_logger] - [tasks.py:77:create_task] - [创建任务] 模型: seedance-2.0, 提示词: 让@参考图片1 光影随动。...
+2026-04-10 23:11:53,089 - INFO - [daily_logger] - [tasks.py:82:create_task] - 创建任务原始 Payload: {"model":"seedance-2.0","prompt":"让@参考图片1 光影随动。","first_frame_path":null,"last_frame_path":null,"reference_image_path":"local_user/upload/1775833912457_image.png","reference_video_path":null,"reference_audio_path":null,"reference_inputs":[{"type":"reference_image","storage_path":"local_user/upload/1775833912457_image.png","media_type":null}],"ratio":"16:9","duration":4,"generate_audio":false,"watermark":false,"return_last_frame":false,"draft":false,"resolution":"720p","seed":null,"camera_fixed":null,"service_tier":null,"execution_expires_after":null,"conversation_id":"6042c516-5599-4edc-8481-644be005ca45","user_id":null,"access_token":null}
+2026-04-10 23:11:53,850 - INFO - [daily_logger] - [volcano_api.py:332:create_video_task] - [Volcano API] 创建任务 | 模型: ep-20260327104025-mg9cr | 比例: 16:9 | 时长: 4s | 参考输入: 1个
+2026-04-10 23:11:53,850 - INFO - [daily_logger] - [volcano_api.py:409:create_video_task] - [Volcano API] Seedance 2.0 准备提交 | 映射后提示词: 让图片1 光影随动。... | 原始Token: ['@参考图片1']
+2026-04-10 23:11:56,962 - INFO - [daily_logger] - [volcano_api.py:421:create_video_task] - [Volcano API] Seedance 2.0 任务创建成功 | 任务ID: cgt-20260410231154-p2rk5
+2026-04-10 23:11:56,965 - INFO - [daily_logger] - [database.py:150:create_task_record] - [DB] 创建任务记录: model=ep-20260327104025-mg9cr, volcano_task_id=cgt-20260410231154-p2rk5
+2026-04-10 23:11:56,989 - INFO - [daily_logger] - [database.py:170:create_task_record] - [DB] 任务记录创建完成: local_task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, volcano_task_id=cgt-20260410231154-p2rk5
+2026-04-10 23:11:56,989 - INFO - [daily_logger] - [tasks.py:422:create_task] - [任务创建成功] 任务ID: cgt-20260410231154-p2rk5 | 数据库记录: 3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:11:59,521 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:02,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:03,338 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:04,330 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:07,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:08,372 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:10,895 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:12,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:13,376 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:15,733 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:17,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:18,330 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:22,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:22,240 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:23,462 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:27,024 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:27,506 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:28,352 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:32,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:33,378 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:33,629 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:37,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:38,351 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:38,824 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:42,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:43,329 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:44,986 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:47,024 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:48,353 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:50,161 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:52,024 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:53,375 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:12:56,290 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:12:57,024 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:12:58,401 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:01,462 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:02,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:03,354 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:07,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:07,607 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:08,369 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:12,782 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:13,181 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:14,396 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:17,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:18,350 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:18,969 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:22,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:23,432 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:24,020 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:27,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:28,428 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:30,272 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:32,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:33,359 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:35,357 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:37,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:38,361 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:41,616 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:42,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:43,403 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:46,672 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:47,198 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:48,540 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:52,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:52,948 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:53,356 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:13:57,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:13:58,028 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:13:58,551 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:02,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:04,100 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:04,248 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:07,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:09,084 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:09,356 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:12,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:14,046 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:15,486 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:17,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:18,351 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:20,595 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:22,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:24,110 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:26,718 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:27,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:29,117 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:31,847 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:32,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:34,087 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:37,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:37,923 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:39,110 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:42,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:43,261 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:44,072 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:47,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:48,366 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:49,200 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:52,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:54,178 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:14:54,481 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:14:57,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:14:59,195 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:00,496 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:02,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:04,154 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:05,793 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:07,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:09,195 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:11,811 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:12,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:14,153 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:17,022 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:17,543 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:18,378 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:22,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:23,154 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:24,508 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:27,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:29,060 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:29,603 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:32,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:34,622 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:34,675 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:37,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:39,842 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:40,517 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:42,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:44,915 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:46,698 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:47,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:49,200 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:52,352 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:52,887 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:54,278 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:15:57,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:15:58,486 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:15:59,203 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:02,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:03,753 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:04,281 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:07,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:09,859 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:10,166 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:12,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:15,061 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:15,592 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:17,071 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:19,585 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:22,767 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:22,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:24,654 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:27,600 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:28,078 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:30,115 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:32,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:34,455 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:34,647 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:37,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:39,694 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:39,743 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:42,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:44,408 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:46,018 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:47,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:49,893 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:51,100 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:52,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:54,095 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:16:57,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:16:58,264 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:16:59,258 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:02,389 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:17:02,883 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:04,289 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:07,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:09,164 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:10,460 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:17:12,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:13,705 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:17:14,197 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:17,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:18,346 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:21,747 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:17:22,023 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:23,482 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:25,006 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:17:27,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:29,160 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:32,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:33,151 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:17:34,279 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, status=running
+2026-04-10 23:17:36,321 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:17:37,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8
+2026-04-10 23:17:41,620 - INFO - [daily_logger] - [task_worker.py:171:_process_task] - [worker] 任务完成: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8 -> videos/local_user/1775834260_3d300e4a-e78d-4542-bbe7-52f75596cef8.mp4
+2026-04-10 23:17:43,959 - INFO - [daily_logger] - [tasks.py:509:check_status] - 任务转存成功: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, storage_path=videos/local_user/3d300e4a-e78d-4542-bbe7-52f75596cef8.mp4
+2026-04-10 23:17:44,206 - INFO - [daily_logger] - [tasks.py:548:check_status] - 视频缩略图提取并上传成功: task_id=3d300e4a-e78d-4542-bbe7-52f75596cef8, path=local_user/thumbnails/3d300e4a-e78d-4542-bbe7-52f75596cef8.jpg
+2026-04-10 23:24:05,710 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:24:05,710 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:26:40,260 - INFO - [daily_logger] - [tasks.py:77:create_task] - [创建任务] 模型: seedance-2.0, 提示词: 让@参考图片1 光影随动，然后女孩眨眼。...
+2026-04-10 23:26:40,260 - INFO - [daily_logger] - [tasks.py:82:create_task] - 创建任务原始 Payload: {"model":"seedance-2.0","prompt":"让@参考图片1 光影随动，然后女孩眨眼。","first_frame_path":null,"last_frame_path":null,"reference_image_path":"local_user/upload/1775833912457_image.png","reference_video_path":null,"reference_audio_path":null,"reference_inputs":[{"type":"reference_image","storage_path":"local_user/upload/1775833912457_image.png","media_type":null}],"ratio":"16:9","duration":4,"generate_audio":true,"watermark":false,"return_last_frame":false,"draft":false,"resolution":"720p","seed":null,"camera_fixed":null,"service_tier":null,"execution_expires_after":null,"conversation_id":"6042c516-5599-4edc-8481-644be005ca45","user_id":null,"access_token":null}
+2026-04-10 23:26:40,996 - INFO - [daily_logger] - [volcano_api.py:332:create_video_task] - [Volcano API] 创建任务 | 模型: ep-20260327104025-mg9cr | 比例: 16:9 | 时长: 4s | 参考输入: 1个
+2026-04-10 23:26:40,997 - INFO - [daily_logger] - [volcano_api.py:409:create_video_task] - [Volcano API] Seedance 2.0 准备提交 | 映射后提示词: 让图片1 光影随动，然后女孩眨眼。... | 原始Token: ['@参考图片1']
+2026-04-10 23:26:43,389 - INFO - [daily_logger] - [volcano_api.py:421:create_video_task] - [Volcano API] Seedance 2.0 任务创建成功 | 任务ID: cgt-20260410232641-tc6nb
+2026-04-10 23:26:43,391 - INFO - [daily_logger] - [database.py:150:create_task_record] - [DB] 创建任务记录: model=ep-20260327104025-mg9cr, volcano_task_id=cgt-20260410232641-tc6nb
+2026-04-10 23:26:43,414 - INFO - [daily_logger] - [database.py:170:create_task_record] - [DB] 任务记录创建完成: local_task_id=23ac8281-27f1-4584-8714-882b6448404a, volcano_task_id=cgt-20260410232641-tc6nb
+2026-04-10 23:26:43,415 - INFO - [daily_logger] - [tasks.py:422:create_task] - [任务创建成功] 任务ID: cgt-20260410232641-tc6nb | 数据库记录: 23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:26:45,804 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:26:48,448 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:26:49,651 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:26:51,741 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:26:53,448 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:26:54,657 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:26:57,189 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:26:58,449 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:26:59,684 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:03,000 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:03,449 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:04,689 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:08,435 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:08,448 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:09,714 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:13,448 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:14,268 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:14,682 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:18,449 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:19,725 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:19,749 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:23,449 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:24,747 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:25,499 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:28,447 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:30,992 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:34,366 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:36,742 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:38,448 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:39,647 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:42,580 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:43,449 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:44,742 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:47,969 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:48,447 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:49,672 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:53,447 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:53,925 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:54,709 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:27:58,447 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:27:59,285 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:27:59,721 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:28:03,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:28:05,060 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:28:05,231 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:28:08,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:28:10,051 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:28:10,556 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:28:13,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:28:15,107 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=23ac8281-27f1-4584-8714-882b6448404a, status=running
+2026-04-10 23:28:16,572 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:28:18,841 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=23ac8281-27f1-4584-8714-882b6448404a
+2026-04-10 23:28:21,807 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:28:22,229 - INFO - [daily_logger] - [tasks.py:509:check_status] - 任务转存成功: task_id=23ac8281-27f1-4584-8714-882b6448404a, storage_path=videos/local_user/23ac8281-27f1-4584-8714-882b6448404a.mp4
+2026-04-10 23:28:22,456 - INFO - [daily_logger] - [tasks.py:548:check_status] - 视频缩略图提取并上传成功: task_id=23ac8281-27f1-4584-8714-882b6448404a, path=local_user/thumbnails/23ac8281-27f1-4584-8714-882b6448404a.jpg
+2026-04-10 23:28:24,252 - INFO - [daily_logger] - [task_worker.py:84:_process_task] - [worker] task_id=23ac8281-27f1-4584-8714-882b6448404a 下载视频后发现状态已变更为 succeeded，跳过写入
+2026-04-10 23:40:24,041 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:40:24,041 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:40:31,914 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:40:31,914 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:45:15,518 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:45:15,519 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:46:12,975 - INFO - [daily_logger] - [tasks.py:77:create_task] - [创建任务] 模型: seedance-2.0, 提示词: 让@参考图片1 光影随动，然后女孩眨眼，镜头慢慢推近。...
+2026-04-10 23:46:12,975 - INFO - [daily_logger] - [tasks.py:82:create_task] - 创建任务原始 Payload: {"model":"seedance-2.0","prompt":"让@参考图片1 光影随动，然后女孩眨眼，镜头慢慢推近。","first_frame_path":null,"last_frame_path":null,"reference_image_path":"local_user/upload/1775833912457_image.png","reference_video_path":null,"reference_audio_path":null,"reference_inputs":[{"type":"reference_image","storage_path":"local_user/upload/1775833912457_image.png","media_type":null}],"ratio":"16:9","duration":4,"generate_audio":true,"watermark":false,"return_last_frame":false,"draft":false,"resolution":"720p","seed":null,"camera_fixed":null,"service_tier":null,"execution_expires_after":null,"conversation_id":"6042c516-5599-4edc-8481-644be005ca45","user_id":null,"access_token":null}
+2026-04-10 23:46:13,576 - INFO - [daily_logger] - [volcano_api.py:332:create_video_task] - [Volcano API] 创建任务 | 模型: ep-20260327104025-mg9cr | 比例: 16:9 | 时长: 4s | 参考输入: 1个
+2026-04-10 23:46:13,576 - INFO - [daily_logger] - [volcano_api.py:409:create_video_task] - [Volcano API] Seedance 2.0 准备提交 | 映射后提示词: 让图片1 光影随动，然后女孩眨眼，镜头慢慢推近。... | 原始Token: ['@参考图片1']
+2026-04-10 23:46:15,712 - INFO - [daily_logger] - [volcano_api.py:421:create_video_task] - [Volcano API] Seedance 2.0 任务创建成功 | 任务ID: cgt-20260410234614-jtzjz
+2026-04-10 23:46:15,714 - INFO - [daily_logger] - [database.py:150:create_task_record] - [DB] 创建任务记录: model=ep-20260327104025-mg9cr, volcano_task_id=cgt-20260410234614-jtzjz
+2026-04-10 23:46:15,736 - INFO - [daily_logger] - [database.py:170:create_task_record] - [DB] 任务记录创建完成: local_task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, volcano_task_id=cgt-20260410234614-jtzjz
+2026-04-10 23:46:15,737 - INFO - [daily_logger] - [tasks.py:422:create_task] - [任务创建成功] 任务ID: cgt-20260410234614-jtzjz | 数据库记录: 810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:20,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:22,012 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:24,385 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:46:25,520 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:46:25,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:27,045 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:30,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:32,000 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:35,621 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:46:36,018 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:36,901 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:46:37,237 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:40,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:42,038 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:45,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:46,866 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:46:47,275 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:48,219 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:46:50,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:52,014 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:55,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:46:57,005 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:46:58,114 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:46:59,482 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:00,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:02,041 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:05,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:07,031 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:09,330 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:10,732 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:10,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:12,095 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:15,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:17,035 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:20,572 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:20,970 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:22,106 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:22,211 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:25,769 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:27,024 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:30,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:31,827 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:32,255 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:33,378 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:35,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:37,011 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:40,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:42,027 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:43,068 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:44,712 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:45,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:46,986 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:50,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:51,992 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:47:54,295 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:55,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:47:55,989 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:47:57,036 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:00,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:02,022 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:05,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:07,110 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:07,306 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:10,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:11,237 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:12,075 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:15,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:17,085 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:18,528 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:20,832 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:22,097 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:22,516 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:25,830 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:27,102 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:29,780 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:30,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:32,013 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:33,739 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:35,769 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:36,989 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:40,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:41,012 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:42,047 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:44,980 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:45,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:47,028 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:50,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:51,999 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:48:52,373 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:55,769 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:48:56,201 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:48:56,999 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:00,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:02,014 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:03,684 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:05,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:06,971 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:07,451 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:10,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:11,998 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:14,999 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:15,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:16,972 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:18,695 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:20,769 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:22,097 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:25,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:26,306 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:26,998 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:29,878 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:30,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:32,001 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:35,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:36,983 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:37,564 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:40,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:41,187 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:42,000 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:45,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:47,034 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:48,818 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:50,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:52,071 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:49:52,404 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:49:55,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:49:57,041 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:00,095 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:50:00,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:01,993 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:03,638 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:50:05,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:07,026 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:10,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:11,393 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:50:12,016 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:14,876 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:50:15,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:17,024 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:20,771 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:21,995 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:22,665 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:50:25,769 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:26,188 - DEBUG - [daily_logger] - [task_worker.py:196:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:50:26,994 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:30,770 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:32,005 - DEBUG - [daily_logger] - [tasks.py:637:check_status] - 任务状态更新: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, status=running
+2026-04-10 23:50:33,935 - DEBUG - [daily_logger] - [task_worker.py:204:background_poller] - [worker] 发现 1 个活跃任务
+2026-04-10 23:50:35,831 - DEBUG - [daily_logger] - [tasks.py:448:check_status] - [查询任务状态] 开始: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1
+2026-04-10 23:50:36,344 - INFO - [daily_logger] - [oss_client.py:87:save_local_file] - [Storage] 生成文件已保存到本地: D:\Dev_project\Python_Project\seedance2.0_api_web_Lite\outputs\videos\local_user\1775836236_810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.mp4
+2026-04-10 23:50:36,487 - INFO - [daily_logger] - [oss_client.py:87:save_local_file] - [Storage] 生成文件已保存到本地: D:\Dev_project\Python_Project\seedance2.0_api_web_Lite\outputs\thumbnails\local_user\1775836236_810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.jpg
+2026-04-10 23:50:36,487 - INFO - [daily_logger] - [task_worker.py:121:_process_task] - [worker] 视频缩略图已保存到本地: path=thumbnails/local_user/1775836236_810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.jpg
+2026-04-10 23:50:36,503 - INFO - [daily_logger] - [task_worker.py:179:_process_task] - [worker] 任务完成: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1 -> videos/local_user/1775836236_810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.mp4
+2026-04-10 23:50:39,305 - INFO - [daily_logger] - [tasks.py:509:check_status] - 任务转存成功: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, storage_path=videos/local_user/810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.mp4
+2026-04-10 23:50:39,528 - INFO - [daily_logger] - [tasks.py:548:check_status] - 视频缩略图提取并上传成功: task_id=810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1, path=local_user/thumbnails/810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.jpg
+2026-04-10 23:54:20,085 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:54:20,085 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:56:55,226 - DEBUG - [daily_logger] - [oss_client.py:52:get_public_url] - [Routing] Path: videos/local_user/1775836236_810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.mp4 -> URL: /outputs/videos/local_user/1775836236_810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.mp4 (is_local: True)
+2026-04-10 23:57:26,271 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:57:26,271 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:57:34,058 - DEBUG - [daily_logger] - [oss_client.py:54:get_public_url] - [Routing] Path:  videos/local_user/810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.mp4  -> URL: /outputs/ videos/local_user/810b4e46-55d4-4ef3-bf4e-a3bd4a7e2fc1.mp4  (is_local: True)
+2026-04-10 23:57:41,966 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:57:41,966 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s
+2026-04-10 23:58:12,139 - INFO - [daily_logger] - [database.py:99:init_db] - [DB] SQLite 数据库初始化完成: data/app.db
+2026-04-10 23:58:12,139 - INFO - [daily_logger] - [task_worker.py:199:background_poller] - [worker] 后台任务轮询器已启动，轮询间隔 10s

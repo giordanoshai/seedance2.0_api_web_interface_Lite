@@ -1,0 +1,122 @@
+            <template x-if="currentView === 'media'">
+                <section class="flex-1 p-8 overflow-y-auto bg-surface">
+                    <div class="max-w-8xl mx-auto space-y-8">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                            <div>
+                                <h2 class="text-4xl md:text-5xl font-extrabold font-headline tracking-tight text-indigo-50 mb-2">Media Library</h2>
+                                <p class="text-xs text-slate-500 font-label mt-2" x-text="`${mediaStats.total_images} 张图片 • ${mediaStats.total_videos} 个视频 • ${mediaStats.total_audios || 0} 个音频 • 上传 ${mediaStats.total_uploaded} • 生成 ${mediaStats.total_generated} • ${(mediaStats.total_size / 1024 / 1024).toFixed(2)} MB`"></p>
+                            </div>
+                            <div class="flex flex-wrap items-center justify-end gap-3">
+                                <div class="flex bg-surface-container-low p-1 rounded-full">
+                                    <button @click="changeMediaType(null)" :class="filterMediaType === null ? 'bg-primary text-on-primary-container' : 'text-slate-400 hover:text-indigo-200'" class="px-5 py-1.5 rounded-full text-xs font-label font-bold tracking-wide transition-colors">全部</button>
+                                    <button @click="changeMediaType('video')" :class="filterMediaType === 'video' ? 'bg-primary text-on-primary-container' : 'text-slate-400 hover:text-indigo-200'" class="px-5 py-1.5 rounded-full text-xs font-label font-bold tracking-wide transition-colors">视频</button>
+                                    <button @click="changeMediaType('image')" :class="filterMediaType === 'image' ? 'bg-primary text-on-primary-container' : 'text-slate-400 hover:text-indigo-200'" class="px-5 py-1.5 rounded-full text-xs font-label font-bold tracking-wide transition-colors">图片</button>
+                                    <button @click="changeMediaType('audio')" :class="filterMediaType === 'audio' ? 'bg-primary text-on-primary-container' : 'text-slate-400 hover:text-indigo-200'" class="px-5 py-1.5 rounded-full text-xs font-label font-bold tracking-wide transition-colors">音频</button>
+                                </div>
+                                <div class="flex bg-surface-container-low p-1 rounded-full">
+                                    <button @click="changeMediaSource(null)" :class="filterMediaSource === null ? 'bg-primary text-on-primary-container' : 'text-slate-400 hover:text-indigo-200'" class="px-5 py-1.5 rounded-full text-xs font-label font-bold tracking-wide transition-colors">全部来源</button>
+                                    <button @click="changeMediaSource('uploaded')" :class="filterMediaSource === 'uploaded' ? 'bg-primary text-on-primary-container' : 'text-slate-400 hover:text-indigo-200'" class="px-5 py-1.5 rounded-full text-xs font-label font-bold tracking-wide transition-colors">上传</button>
+                                    <button @click="changeMediaSource('generated')" :class="filterMediaSource === 'generated' ? 'bg-primary text-on-primary-container' : 'text-slate-400 hover:text-indigo-200'" class="px-5 py-1.5 rounded-full text-xs font-label font-bold tracking-wide transition-colors">生成</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template x-if="!mediaLibrary.length && mediaLibraryLoaded">
+                            <div class="text-center py-20 border-2 border-dashed border-outline-variant/20 rounded-2xl">
+                                <span class="material-symbols-outlined text-5xl text-slate-700">collections</span>
+                                <p class="text-sm text-slate-500 mt-4 font-label">暂无媒体文件</p>
+                            </div>
+                        </template>
+
+                        <template x-if="!mediaLibraryLoaded">
+                            <div class="flex justify-center py-20">
+                                <div class="flex flex-col items-center gap-4">
+                                    <svg class="animate-spin h-8 w-8 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                    </svg>
+                                    <span class="text-indigo-300 animate-pulse text-xs font-label">正在连接云端资产库...</span>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template x-if="mediaLibrary.length">
+                            <div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                                    <template x-for="media in mediaLibrary" :key="media.id">
+                                        <div class="group relative flex flex-col bg-surface-container rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_20px_40px_-12px_rgba(192,193,255,0.1)]">
+                                            <div class="relative aspect-video overflow-hidden">
+                                                <template x-if="media.file_type === 'image'">
+                                                    <img :src="media.thumbnail_signed_url || media.signed_url" :alt="media.name" class="w-full h-full object-cover" loading="lazy" />
+                                                </template>
+                                                <template x-if="media.file_type === 'video'">
+                                                    <video :src="media.signed_url" :poster="media.thumbnail_signed_url" class="w-full h-full object-cover" muted preload="metadata"></video>
+                                                </template>
+                                                <template x-if="media.file_type === 'audio'">
+                                                    <div class="w-full h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col items-center justify-center gap-3">
+                                                        <span class="material-symbols-outlined text-5xl text-indigo-200">graphic_eq</span>
+                                                        <audio :src="media.signed_url" controls preload="none" class="w-[85%] h-10"></audio>
+                                                    </div>
+                                                </template>
+                                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+
+                                                <div class="absolute top-3 left-3 flex gap-2">
+                                                    <span x-show="media.file_type === 'video'" class="bg-black/60 backdrop-blur-md text-primary text-[10px] font-label font-bold px-2 py-0.5 rounded-sm tracking-widest" x-text="formatMediaResolution(media)"></span>
+                                                    <span x-show="media.file_type === 'video' || media.file_type === 'audio'" class="bg-black/60 backdrop-blur-md text-white text-[10px] font-label font-bold px-2 py-0.5 rounded-sm" x-text="formatMediaDuration(media)"></span>
+                                                    <span class="bg-black/60 backdrop-blur-md text-slate-200 text-[10px] font-label font-bold px-2 py-0.5 rounded-sm" x-text="media.source_type === 'generated' ? '生成' : '上传'"></span>
+                                                </div>
+
+                                                <div class="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <template x-if="media.file_type === 'image'">
+                                                        <button @click="viewMedia(media)" class="p-2.5 rounded-full glass-panel text-white hover:text-primary transition-colors">
+                                                            <span class="material-symbols-outlined text-lg">search</span>
+                                                        </button>
+                                                    </template>
+                                                    <template x-if="media.file_type === 'video'">
+                                                        <button @click="playMediaVideo(media)" class="p-2.5 rounded-full glass-panel text-white hover:text-primary transition-colors">
+                                                            <span class="material-symbols-outlined text-lg">play_circle</span>
+                                                        </button>
+                                                    </template>
+                                                    <template x-if="media.file_type === 'audio'">
+                                                        <button @click="playMediaAudio(media)" class="p-2.5 rounded-full glass-panel text-white hover:text-primary transition-colors">
+                                                            <span class="material-symbols-outlined text-lg">play_arrow</span>
+                                                        </button>
+                                                    </template>
+                                                    <button @click="downloadMediaItem(media)" class="p-2.5 rounded-full glass-panel text-white hover:text-primary transition-colors">
+                                                        <span class="material-symbols-outlined text-lg">download</span>
+                                                    </button>
+                                                    <button @click="deleteMediaItem(media.id)" class="p-2.5 rounded-full glass-panel text-white hover:text-error transition-colors">
+                                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-4 flex flex-col gap-1">
+                                                <div class="flex items-center justify-between">
+                                                    <h3 class="font-bold text-indigo-50 text-sm truncate" x-text="media.name"></h3>
+                                                    <span class="material-symbols-outlined text-slate-600 text-sm" x-text="media.file_type === 'video' ? 'movie' : media.file_type === 'audio' ? 'graphic_eq' : 'image'"></span>
+                                                </div>
+                                                <div class="flex items-center justify-between mt-2">
+                                                    <span class="text-[10px] font-label text-slate-500 uppercase" x-text="new Date(media.created_at).toLocaleDateString('zh-CN')"></span>
+                                                    <span class="text-[10px] font-label text-slate-500 uppercase" x-text="formatMediaSize(media)"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+
+                                <!-- 分页控件 -->
+                                <div class="flex justify-center items-center gap-4 mt-12 mb-8">
+                                    <button @click="prevPage()" :disabled="currentPage <= 1" class="px-4 py-2 bg-surface-container-high rounded-full text-sm font-label font-bold text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-sm">chevron_left</span> 上一页
+                                    </button>
+                                    <span class="text-slate-400 text-sm font-label font-bold bg-surface-container py-2 px-5 rounded-full">第 <span x-text="currentPage" class="text-indigo-300"></span> 页</span>
+                                    <button @click="nextPage()" :disabled="!hasMore" class="px-4 py-2 bg-surface-container-high rounded-full text-sm font-label font-bold text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+                                        下一页 <span class="material-symbols-outlined text-sm">chevron_right</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+            </template>

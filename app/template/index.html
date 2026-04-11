@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="dark" lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Tao Seedance2.0 — 视频生成工作台</title>
+    <meta name="description" content="基于 Seedance 的 AI 视频生成工作台，支持文字/图片/首尾帧多模态输入" />
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" crossorigin="anonymous" />
+
+    <!-- Tailwind CSS (Local) -->
+    <script src="/static/js/lib/tailwind.js"></script>
+
+    <!-- Alpine.js (Local) -->
+    <script defer src="/static/js/lib/alpine.min.js"></script>
+
+
+    <!-- Custom Styles & JS Logic -->
+    <link rel="stylesheet" href="/static/css/style.css" />
+
+    <script>
+        // 后端注入的配置信息
+        window.appSettings = {
+            STORAGE_BUCKET: "{{ storage_bucket }}",
+            THUMBNAIL_BUCKET: "{{ thumbnail_bucket }}"
+        };
+    </script>
+
+    <script src="/static/js/pages/auth.js"></script><!-- 无认证模式 -->
+    <script src="/static/js/pages/conversation.js"></script>
+    <!-- Generator parts -->
+    <script src="/static/js/pages/generator/tasks.js"></script>
+    <script src="/static/js/pages/generator/mentions.js"></script>
+    <script src="/static/js/lib/ffmpeg.js"></script>
+    <script src="/static/js/lib/ffmpeg-util.js"></script>
+    <script src="/static/js/pages/generator/media_processor.js"></script>
+    <script src="/static/js/pages/generator/files.js"></script>
+    <script src="/static/js/pages/generator/ui.js"></script>
+    <script src="/static/js/pages/generator.js"></script>
+    <script src="/static/js/pages/history.js"></script>
+    <script src="/static/js/pages/media.js"></script>
+    <script src="/static/js/app.js"></script>
+</head>
+
+<body class="bg-background text-on-surface font-body overflow-hidden" x-data="appState()" x-init="init()">
+
+
+
+    <!-- ==================== 页面主容器 (Max-width 1280 & Centered) ==================== -->
+    <div
+        class="w-3/4 mx-auto h-screen flex relative overflow-hidden bg-slate-950 shadow-[0_0_50px_rgba(0,0,0,0.5)] border-x border-white/5">
+
+        <!-- ==================== 侧边栏 ==================== -->
+        <aside class="h-full w-64 flex flex-col py-6 px-3 bg-slate-950 border-r border-white/5 z-50 shrink-0">
+            <a href="/">
+                <div class="mb-6 px-3">
+                    <h1 class="text-2xl font-bold tracking-tighter text-indigo-200 font-headline">Seedance2.0</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-label mt-1">Web Interface Lite
+                    </p>
+                </div>
+            </a>
+
+            <!-- 新建对话按钮 -->
+            <button @click="createNewConversation()"
+                class="mx-2 mb-4 flex items-center gap-2 px-4 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded-xl text-sm font-bold transition-all active:scale-95">
+                <span class="material-symbols-outlined text-lg">add</span>
+                <span class="font-label">新建对话</span>
+            </button>
+
+            <!-- 对话列表 -->
+            <div class="flex-1 overflow-y-auto space-y-1 px-1">
+                <template x-for="conv in conversations" :key="conv.id">
+                    <div @click="switchConversation(conv)" @keydown.enter.prevent="switchConversation(conv)"
+                        @keydown.space.prevent="switchConversation(conv)" tabindex="0" role="button"
+                        :class="currentConversation?.id === conv.id ? 'bg-indigo-500/10 border-l-2 border-indigo-400' : 'hover:bg-slate-800/50 border-l-2 border-transparent'"
+                        class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors duration-200 group relative cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary/30">
+                        <!-- 缩略图 -->
+                        <div
+                            class="h-10 w-10 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-highest flex items-center justify-center">
+                            <template x-if="conv.thumbnail_signed_url">
+                                <video :src="conv.thumbnail_signed_url" class="w-full h-full object-cover" muted
+                                    preload="metadata" @click.stop="playConversationVideo(conv)"></video>
+                            </template>
+                            <template x-if="!conv.thumbnail_signed_url">
+                                <span class="material-symbols-outlined text-slate-600 text-lg">chat_bubble</span>
+                            </template>
+                        </div>
+                        <!-- 标题 -->
+                        <div class="flex-1 min-w-0 text-left">
+                            <p class="text-xs text-slate-300 truncate"
+                                :class="currentConversation?.id === conv.id ? 'text-indigo-200 font-bold' : ''"
+                                x-text="conv.title || '新对话'"></p>
+                            <p class="text-[9px] text-slate-600 mt-0.5"
+                                x-text="new Date(conv.updated_at).toLocaleDateString('zh-CN')"></p>
+                        </div>
+                        <!-- 操作组 -->
+                        <div
+                            class="flex items-center gap-1 absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button @click.stop="renameConversation(conv)"
+                                class="h-7 w-7 flex items-center justify-center rounded-md text-slate-400 hover:bg-white/10 hover:text-indigo-300 transition-all">
+                                <span class="material-symbols-outlined text-sm">edit</span>
+                            </button>
+                            <button @click.stop="deleteConversation(conv.id)"
+                                :disabled="deletingConversationId === conv.id"
+                                class="h-7 w-7 flex items-center justify-center rounded-md text-slate-400 hover:bg-rose-500/10 hover:text-error transition-all">
+                                <span class="material-symbols-outlined text-sm"
+                                    x-text="deletingConversationId === conv.id ? 'progress_activity' : 'delete'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- 空状态 -->
+                <div x-show="conversations.length === 0" class="text-center py-8">
+                    <span class="material-symbols-outlined text-3xl text-slate-700">forum</span>
+                    <p class="text-[10px] text-slate-600 mt-2 font-label">暂无对话</p>
+                </div>
+            </div>
+
+            <!-- 底部分隔 -->
+            <nav class="mt-4 space-y-1 px-1 border-t border-white/5 pt-4">
+                <button @click="currentView = 'generator'"
+                    :class="currentView === 'generator' ? 'text-indigo-200 font-bold bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'"
+                    class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200">
+                    <span class="material-symbols-outlined text-lg">movie_filter</span>
+                    <span class="font-label text-xs">生成器</span>
+                </button>
+                <button @click="currentView = 'media'; loadMediaLibrary()"
+                    :class="currentView === 'media' ? 'text-indigo-200 font-bold bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'"
+                    class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200">
+                    <span class="material-symbols-outlined text-lg">collections</span>
+                    <span class="font-label text-xs">媒体库</span>
+                </button>
+                <button @click="currentView = 'history'; loadTasks()"
+                    :class="currentView === 'history' ? 'text-indigo-200 font-bold bg-indigo-500/10' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'"
+                    class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200">
+                    <span class="material-symbols-outlined text-lg">history</span>
+                    <span class="font-label text-xs">任务历史</span>
+                </button>
+            </nav>
+
+
+        </aside>
+
+        <!-- ==================== 主工作区 ==================== -->
+        <main class="flex-1 h-full flex flex-col relative overflow-hidden bg-slate-900/20">
+            <!-- 顶部导航 -->
+            <header
+                class="h-14 px-8 flex justify-between items-center bg-slate-950/40 backdrop-blur-xl border-b border-white/5 z-40 sticky top-0">
+                <div class="flex items-center gap-6">
+                    <span class="text-indigo-200 font-label text-sm uppercase tracking-wider"
+                        x-text="currentView === 'generator' ? (currentConversation?.title || '视频生成') : (currentView === 'media' ? '媒体库' : '任务历史')"></span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <!-- 模型选择 -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                            class="flex items-center gap-2 px-4 py-1.5 bg-surface-container-highest text-primary-fixed rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-surface-bright transition-colors">
+                            <span class="material-symbols-outlined text-sm">smart_toy</span>
+                            <span x-text="models[selectedModel]?.name || '选择模型'"></span>
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-transition
+                            class="absolute right-0 top-full mt-2 w-64 bg-surface-container-high border border-outline-variant rounded-xl shadow-2xl z-50 overflow-hidden">
+                            <template x-for="(cfg, key) in models" :key="key">
+                                <button @click="selectModel(key); open = false"
+                                    :class="selectedModel === key ? 'bg-primary/10 border-l-2 border-primary' : 'hover:bg-surface-container-highest'"
+                                    class="w-full flex items-center justify-between px-4 py-3 text-left transition-colors">
+                                    <div>
+                                        <p class="text-sm font-bold text-indigo-100" x-text="cfg.name"></p>
+                                        <p class="text-[10px] text-slate-500 mt-0.5"
+                                            x-text="cfg.available ? '可用' : '即将上线'">
+                                        </p>
+                                    </div>
+                                    <span x-show="!cfg.available"
+                                        class="px-2 py-0.5 bg-tertiary-container/20 text-tertiary text-[9px] rounded-full font-label">SOON</span>
+                                    <span x-show="selectedModel === key && cfg.available"
+                                        class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ==================== 内容区域 ==================== -->
+            <div class="flex-1 flex overflow-hidden">
+                {% include 'pages/generator_view.html' %}
+                {% include 'pages/media_view.html' %}
+                {% include 'pages/history_view.html' %}
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== 图片放大弹窗 ==================== -->
+    <div x-show="showImageModal" x-transition.opacity
+        class="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+        @click.self="closeImageModal()">
+        <div class="relative max-w-3xl mx-8 rounded-2xl overflow-hidden shadow-2xl bg-black">
+            <button @click="closeImageModal()"
+                class="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <img x-show="imageModalUrl" :src="imageModalUrl" class="w-full max-h-[90vh] object-contain" />
+        </div>
+    </div>
+
+    <!-- ==================== 视频弹窗播放器 ==================== -->
+    <div x-show="showVideoModal" x-transition.opacity
+        class="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+        @click.self="closeVideoModal()">
+        <div class="relative w-full max-w-4xl mx-8 rounded-2xl overflow-hidden shadow-2xl bg-black">
+            <button @click="closeVideoModal()"
+                class="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <video x-ref="videoModal" :src="videoModalUrl" controls playsinline preload="metadata"
+                crossorigin="anonymous" class="w-full aspect-video object-contain"></video>
+        </div>
+    </div>
+
+
+
+    <!-- ==================== 对话重命名弹窗 ==================== -->
+    <div x-show="showRenameModal" x-transition.opacity
+        class="fixed inset-0 z-[210] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+        @click.self="closeRenameModal()">
+        <div class="w-full max-w-md mx-6 rounded-2xl border border-white/10 bg-surface-container p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-indigo-100">修改对话标题</h3>
+                <button @click="closeRenameModal()"
+                    class="p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-700/40 transition-colors">
+                    <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase tracking-wider font-label">对话名称</label>
+                    <input x-model="renameTitle" type="text" maxlength="80" placeholder="请输入对话标题"
+                        @keydown.enter="saveConversationTitle()"
+                        class="mt-1 w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 text-sm text-indigo-100 placeholder-slate-600 focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all" />
+                    <p x-show="renameError" x-text="renameError" class="text-xs text-error mt-1"></p>
+                </div>
+            </div>
+
+            <div class="mt-5 flex items-center justify-end gap-2">
+                <button @click="closeRenameModal()"
+                    class="px-4 py-2 rounded-lg text-xs text-slate-300 hover:bg-slate-700/40 transition-colors">
+                    取消
+                </button>
+                <button @click="saveConversationTitle()" :disabled="renameSaving"
+                    class="px-4 py-2 rounded-lg bg-primary text-on-primary-container text-xs font-bold hover:bg-primary-container transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+                    <span x-show="!renameSaving">确认修改</span>
+                    <span x-show="renameSaving">保存中...</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
