@@ -7,7 +7,7 @@
 [中文版](./README.md) | **English Version**
 
 A private-deployable, lightweight AI video generation workbench built on **Seedance 2.0**. This Lite version uses local **SQLite3** for data persistence and **Alibaba Cloud OSS** for asset management. It supports multi-modal reference inputs and sophisticated task management.
-
+You will need OSS or publick ipv4 address.
 ---
 
 ## 📸 Screenshots
