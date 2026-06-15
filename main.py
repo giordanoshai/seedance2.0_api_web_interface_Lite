@@ -47,7 +47,8 @@ app = FastAPI(title="SD_Video", description="AI 视频生成工作台", lifespan
 # 挂载静态文件
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs")
-app.mount("/data", StaticFiles(directory="data"), name="data")
+if os.path.isdir("data"):
+    app.mount("/data", StaticFiles(directory="data"), name="data")
 
 # 引入路由模块
 app.include_router(router)
