@@ -68,12 +68,6 @@ class VolcanoVideoAPI:
     """火山引擎视频生成 API 客户端"""
 
     def __init__(self):
-        self.base_url = settings.ARK_BASE_URL
-        self.api_key = settings.ARK_API_KEY
-        self.headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}",
-        }
         self.seedance20_url = settings.SEEDANCE20_URL
         self.seedance20_key = settings.SEEDANCE20_KEY
 
@@ -412,7 +406,7 @@ class VolcanoVideoAPI:
             async with httpx.AsyncClient(timeout=120.0) as client:
                 try:
                     response = await client.post(
-                        f"{self.seedance20_url}/v1/video/tasks",
+                        f"{self.seedance20_url}/contents/generations/tasks",
                         headers=self._get_seedance20_headers(),
                         json=payload,
                     )
@@ -439,8 +433,8 @@ class VolcanoVideoAPI:
             "watermark": watermark,
         }
 
-        # Seedance 1.5 Pro 特有参数
-        if model == settings.VM_SEEDANCE_15:
+        # 保留旧模型分支（当前仅 Seedance 2.0 可用）
+        if False:
             payload["generate_audio"] = generate_audio
             payload["return_last_frame"] = return_last_frame
             payload["draft"] = draft
@@ -488,7 +482,7 @@ class VolcanoVideoAPI:
             任务详情，包含 status, content(video_url) 等
         """
         base_url = self.seedance20_url if self._is_seedance20_model(model) else self.base_url
-        endpoint = f"/v1/video/tasks/{task_id}" if self._is_seedance20_model(model) else f"/api/v3/contents/generations/tasks/{task_id}"
+        endpoint = f"/contents/generations/tasks/{task_id}" if self._is_seedance20_model(model) else f"/api/v3/contents/generations/tasks/{task_id}"
         headers = self._get_seedance20_headers() if self._is_seedance20_model(model) else self.headers
 
         if self._is_seedance20_model(model) and (not self.seedance20_url or not self.seedance20_key):
@@ -583,7 +577,7 @@ class VolcanoVideoAPI:
             async with httpx.AsyncClient(timeout=30.0) as client:
                 try:
                     response = await client.delete(
-                        f"{self.seedance20_url}/v1/video/tasks/{task_id}",
+                        f"{self.seedance20_url}/contents/generations/tasks/{task_id}",
                         headers=self._get_seedance20_headers(),
                     )
                     response.raise_for_status()

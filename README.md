@@ -1,4 +1,4 @@
-# Seedance 2.0 AI 视频生成工作台 (Lite Open Source)
+# Seedance 2.0 AI 视频生成工作台 (Lite 开源版)
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.135.3-teal.svg?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg?style=flat&logo=python)](https://www.python.org)
@@ -6,26 +6,55 @@
 
 **中文版** | [English Version](./README_EN.md)
 
-一个基于 **Seedance 2.0** 构建的可私有化部署、轻量级 AI 视频生成控制台。本项目为开源简化版（Lite），使用本地 **SQLite3** 存储数据，配合 **阿里云 OSS** 管理上传素材，支持多模态参考输入和精细化的任务管理。
-PS:忘了告诉大家，你需要公网IP或者OSS。
-如果你需要supabase多用户管理,支持用户生成管理,请联系:giordanoshai@gmail.com
+一个基于 **Seedance 2.0** 构建的可私有化部署、轻量级 AI 视频生成控制台。本项目为开源 Lite 版，使用本地 **SQLite3** 存储数据，支持多模态参考输入和精细化的任务管理。OSS 为可选配置，不配置也可直接使用参考图片功能。
 ---
 
+## Lite 版 vs Pro 版
 
+| 功能 | Lite 开源版 | Pro 版 |
+|------|:-----------:|:------:|
+| Seedance 2.0 视频生成 | ✅ | ✅ |
+| 对话式工作流 | ✅ | ✅ |
+| 媒体库管理 | ✅ | ✅ |
+| 本地 SQLite 存储 | ✅ | ✅ |
+| 无 OSS 本地模式（参考图片） | ✅ | ✅ |
+| 参考视频 / 参考音频 | 需配置 OSS | ✅ |
+| 多用户 / 工作区 | ❌ | ✅ |
+| 用户配额管理 | ❌ | ✅ |
+| Supabase 云数据库 | ❌ | ✅ |
+| 字节真人资产库集成 | ❌ | ✅ |
+| API Key 接入 | ❌ | ✅ |
+
+> 如需 Pro 版（多用户、配额管理、Supabase 支持），请联系：giordanoshai@gmail.com
+
+---
 
 ## 📸 项目预览
 
-### 核心界面
+### Lite 版界面
+
+#### 核心界面
 ![主界面预览](screenshot/main.png)
-*简洁直观的控制台，支持多种模型参数调整与即时预览。*
 
-### 对话与历史
+#### 对话与历史
 ![历史记录](screenshot/history.png)
-*左侧对话列表式管理，任务状态实时轮询更新。*
 
-### 媒体库管理
+#### 媒体库管理
 ![媒体库](screenshot/media.png)
-*统一管理上传素材与生成结果，支持视频缩略图自动提取与预览。*
+
+### Pro 版界面预览
+
+#### 主页
+![Pro 主页](screenshot/pro_home.png)
+
+#### 媒体库
+![Pro 媒体库](screenshot/pro_medialib.png)
+
+#### 用户管理
+![Pro 用户管理](screenshot/pro_user.png)
+
+#### 管理后台
+![Pro 管理后台](screenshot/pro_admin.png)
 
 ---
 
@@ -33,7 +62,7 @@ PS:忘了告诉大家，你需要公网IP或者OSS。
 
 - 🚀 **模型支持**：完整支持 Seedance 2.0 及其多参考输入协议（图片、视频、音频）。
 - 💾 **本地存储**：无需复杂数据库，使用 SQLite3 存储对话历史、任务信息及媒体元数据。
-- ☁️ **云端联动**：利用阿里云 OSS 存储海量参考素材，确保 API 调用时的稳定性。
+- ☁️ **OSS 可选**：OSS 未配置时自动切换本地模式，参考图片以 base64 直传 API，零门槛启动。
 - 🖼️ **自动化预览**：自动生成生成的视频关键帧缩略图，提升浏览效率。
 - 🔄 **后台异步**：内置任务状态轮询器，自动将火山引擎生成结果转存至本地。
 - ⚡ **轻量化设计**：单用户模式，无需登录，开箱即用，适合个人创作。
@@ -43,8 +72,8 @@ PS:忘了告诉大家，你需要公网IP或者OSS。
 ## 🛠️ 安装与部署
 
 ### 1. 环境准备
-- Python 3.12+ 
-- 系统需安装 **FFmpeg** 并加入系统变量（用于视频信息及缩略图提取）。
+- Python 3.12+
+- 系统需安装 **FFmpeg** 并加入系统 PATH（用于视频信息及缩略图提取）。
 
 ### 2. 克隆项目
 ```bash
@@ -54,40 +83,50 @@ cd seedance2.0_api_web_Lite
 
 ### 3. 创建虚拟环境并安装依赖
 ```bash
-# Windows
 python -m venv .venv
-.venv\Scripts\activate
 
-# 安装库
-pip install -r pyproject.toml # 或者使用 uv/pip 直接安装
-# 推荐使用 pip
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+
 pip install aiosqlite fastapi httpx jinja2 oss2 pillow pydantic python-dotenv python-multipart uvicorn[standard]
 ```
 
-### 4. 配置项目
-根据 `.env.example` 创建项目根目录下的 `.env` 文件，或者直接编辑 `app/config.py`：
+### 4. 配置 .env
+
+复制 `.env.example` 为 `.env`，按需填写：
 
 ```bash
-# 核心配置项,我这里默认用的是上海的OSS，根据你的实际情况来修改。
-OSS_KEY_ID=你的阿里云AccessKeyId
-OSS_ACCESSKEY=你的阿里云AccessKeySecret
-OSS_BUCKET_NAME=你的Bucket名
-OSS_ENDPOINT=oss-cn-shanghai.aliyuncs.com
-OSS_URI=your-bucket.oss-cn-shanghai.aliyuncs.com
+# 必填：火山引擎 API Key
+SEEDANCE20_KEY=你的Seedance2.0专属KEY
 
-SEEDANCE20_KEY=你的Seedance2.0专属KEY 
-SEEDANCE20_URL=默认已填官方地址
+# 可选：阿里云 OSS（不填则使用本地模式）
+OSS_KEY_ID=
+OSS_ACCESSKEY=
+OSS_BUCKET_NAME=
 ```
+
+#### 两种运行模式说明
+
+| 模式 | 触发条件 | 参考图片 | 参考视频 | 参考音频 |
+|------|---------|:--------:|:--------:|:--------:|
+| **本地模式**（默认） | OSS 三项配置留空 | ✅ base64 直传 | ❌ | ❌ |
+| **OSS 模式** | 填写 OSS_KEY_ID / OSS_ACCESSKEY / OSS_BUCKET_NAME | ✅ | ✅ | ✅ |
+
+> 两种模式自动检测，无需手动切换。
 
 ---
 
 ## 🚀 启动应用
 
-运行主程序：
 ```bash
 python main.py
+# 或
+uvicorn main:app --host 127.0.0.1 --port 8001 --reload
 ```
-默认访问地址：`http://127.0.0.1:8001/static/generator/index.html` (或根据 main.py 中的路由查看)。
+
+默认访问地址：`http://127.0.0.1:8001`
 
 ---
 
@@ -95,27 +134,29 @@ python main.py
 
 ```text
 ├── app/
-│   ├── routers/          # API 路由 (任务创建、状态查询、媒体库)
-│   ├── static/           # 前端 UI (HTML/JS/CSS)
+│   ├── routers/          # API 路由（任务创建、状态查询、媒体库）
+│   ├── static/           # 前端 UI（HTML/JS/CSS）
 │   ├── template/         # Jinja2 模版
-│   ├── config.py         # 配置文件
+│   ├── config.py         # 配置文件（含 OSS_ENABLED 自动检测）
 │   ├── database.py       # SQLite3 交互
-│   ├── oss_client.py     # 阿里云 OSS 与本地存储路由
+│   ├── oss_client.py     # 双模式存储路由（OSS / 本地 + base64）
 │   ├── task_worker.py    # 后台轮询器
-│   └── volcano_api.py    # 封装的火山引擎 API
-├── data/                 # 数据库文件所在目录
-├── outputs/              # 本地生成的视频与缩略图
+│   └── volcano_api.py    # 火山引擎 API 封装
+├── data/                 # 数据库文件
+├── outputs/              # 本地生成的视频、缩略图与上传素材
 ├── screenshot/           # 项目截图
 ├── main.py               # 程序入口
-└── pyproject.toml        # 依赖管理
+└── .env.example          # 配置模版
 ```
 
 ---
 
 ## 🤝 贡献与反馈
-如果你觉得该项目对你有帮助，欢迎给出 Star 或提交 Pull Request。
+
+如果这个项目对你有帮助，欢迎 Star 或提交 Pull Request。
 
 ---
 
 ## ⚠️ 免责声明
-本项目基于火山引擎与 Seedance API 开发，生成的视频版权归原作者所有。请在使用过程中遵守相关法律法规及平台规定。
+
+本项目基于火山引擎与 Seedance API 开发，生成内容版权归原作者所有。请在使用过程中遵守相关法律法规及平台规定。

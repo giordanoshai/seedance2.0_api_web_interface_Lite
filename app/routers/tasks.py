@@ -37,6 +37,7 @@ from app.database import (
 from app.oss_client import (
     create_signed_url,
     get_public_url,
+    get_api_url,
     upload_file,
     upload_file_to_bucket,
     download_file_from_bucket,
@@ -113,9 +114,9 @@ async def create_task(req: CreateTaskRequest):
 
     try:
         if req.first_frame_path:
-            first_frame_url = await create_signed_url(req.first_frame_path)
+            first_frame_url = await get_api_url(req.first_frame_path, "image")
         if req.last_frame_path:
-            last_frame_url = await create_signed_url(req.last_frame_path)
+            last_frame_url = await get_api_url(req.last_frame_path, "image")
 
         if req.reference_inputs:
             for idx, ref in enumerate(req.reference_inputs):
@@ -136,20 +137,27 @@ async def create_task(req: CreateTaskRequest):
                         status_code=400,
                         detail=f"reference_inputs[{idx}] storage_path 不能为空",
                     )
-                signed_url = await create_signed_url(storage_path)
+                file_type = ref_type.replace("reference_", "")
+                if not settings.OSS_ENABLED and file_type in ("video", "audio"):
+                    type_cn = "视频" if file_type == "video" else "音频"
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"未配置 OSS 时不支持参考{type_cn}，请配置阿里云 OSS 后使用。",
+                    )
+                api_url = await get_api_url(storage_path, file_type)
                 reference_inputs.append(
                     {
                         "type": ref_type,
                         "storage_path": storage_path,
                         "media_type": media_type,
-                        "url": signed_url,
+                        "url": api_url,
                     }
                 )
 
         # 兼容旧字段
         if not reference_inputs:
             if req.reference_image_path:
-                reference_image_url = await create_signed_url(req.reference_image_path)
+                reference_image_url = await get_api_url(req.reference_image_path, "image")
                 reference_inputs.append(
                     {
                         "type": "reference_image",
@@ -158,7 +166,12 @@ async def create_task(req: CreateTaskRequest):
                     }
                 )
             if req.reference_video_path:
-                reference_video_url = await create_signed_url(req.reference_video_path)
+                if not settings.OSS_ENABLED:
+                    raise HTTPException(
+                        status_code=400,
+                        detail="未配置 OSS 时不支持参考视频，请配置阿里云 OSS 后使用。",
+                    )
+                reference_video_url = await get_api_url(req.reference_video_path, "video")
                 reference_inputs.append(
                     {
                         "type": "reference_video",
@@ -167,7 +180,12 @@ async def create_task(req: CreateTaskRequest):
                     }
                 )
             if req.reference_audio_path:
-                reference_audio_url_compat = await create_signed_url(req.reference_audio_path)
+                if not settings.OSS_ENABLED:
+                    raise HTTPException(
+                        status_code=400,
+                        detail="未配置 OSS 时不支持参考音频，请配置阿里云 OSS 后使用。",
+                    )
+                reference_audio_url_compat = await get_api_url(req.reference_audio_path, "audio")
                 reference_inputs.append(
                     {
                         "type": "reference_audio",
@@ -301,7 +319,7 @@ async def create_task(req: CreateTaskRequest):
                 fixed_path = f"{_LOCAL_USER}/upload/refs_{ts}_reference_image_{i + 1}_min300.jpg"
                 await upload_file(fixed_path, fixed_image_bytes, "image/jpeg")
                 reference_inputs[i]["storage_path"] = fixed_path
-                reference_inputs[i]["url"] = await create_signed_url(fixed_path)
+                reference_inputs[i]["url"] = await get_api_url(fixed_path, "image")
                 logger.info(
                     "reference_image 尺寸过小，已自动放大后重传: original_path=%s -> fixed_path=%s, size=%sx%s",
                     original_reference_image_path, fixed_path, fixed_w, fixed_h,

@@ -1,5 +1,7 @@
 import os
 import asyncio
+import base64
+import mimetypes
 import oss2
 from app.config import settings
 from app.dailylogger import daily_logger
@@ -12,21 +14,22 @@ def get_bucket():
     return oss2.Bucket(auth, settings.OSS_ENDPOINT, settings.OSS_BUCKET_NAME)
 
 def is_local_path(file_path: str) -> bool:
-    """判断文件是否属于本地存储（仅限生成的视频和缩略图）"""
+    """判断文件是否属于本地存储"""
     if not file_path:
         return False
-    
-    # 将 Windows 反斜杠统一转换为正斜杠，并移除首尾空格及斜杠
+
     clean_path = file_path.replace("\\", "/").strip().lstrip("/")
-    
-    # 只有生成视频和缩略图才存本地；参考图/视频/音頻等上传的素材存 OSS，不在此列表内
-    local_prefixes = (
-        "videos/",
-        "thumbnails/",
-    )
-    
-    result = any(clean_path.startswith(prefix) for prefix in local_prefixes)
-    return result
+
+    # 生成视频和缩略图始终本地存储
+    local_prefixes = ("videos/", "thumbnails/")
+    if any(clean_path.startswith(prefix) for prefix in local_prefixes):
+        return True
+
+    # 未配置 OSS 时，用户上传的素材也存本地
+    if not settings.OSS_ENABLED:
+        return True
+
+    return False
 
 def get_public_url(file_path: str) -> str:
     """获取文件的公共访问 URL（智能路由：OSS 或 本地静态路由）"""
@@ -51,10 +54,12 @@ def get_public_url(file_path: str) -> str:
     logger.debug("[Routing] Path: %s -> URL: %s (is_local: %s)", file_path, result, is_local)
     return result
 
-# ==================== OSS 操作 (供参考图使用) ====================
+# ==================== OSS / 本地双模式操作 ====================
 
 async def upload_file(file_path: str, file_data: bytes, content_type: str = "application/octet-stream") -> str:
-    """上传文件到 OSS"""
+    """上传文件：OSS 已配置时传云端，否则保存本地"""
+    if not settings.OSS_ENABLED:
+        return await save_local_file(file_path, file_data)
     bucket = get_bucket()
     try:
         headers = {"Content-Type": content_type}
@@ -66,7 +71,14 @@ async def upload_file(file_path: str, file_data: bytes, content_type: str = "app
         raise
 
 async def download_file(file_path: str) -> bytes:
-    """从 OSS 下载文件字节流"""
+    """下载文件：OSS 已配置时从云端拉取，否则读本地"""
+    if not settings.OSS_ENABLED:
+        clean_path = file_path.replace("\\", "/").strip().lstrip("/")
+        abs_path = os.path.abspath(os.path.join(settings.OUTPUT_DIR, clean_path.replace("/", os.sep)))
+        def _read():
+            with open(abs_path, "rb") as f:
+                return f.read()
+        return await asyncio.to_thread(_read)
     bucket = get_bucket()
     try:
         result = await asyncio.to_thread(bucket.get_object, file_path)
@@ -74,6 +86,26 @@ async def download_file(file_path: str) -> bytes:
     except Exception as e:
         logger.error("OSS 下载失败: path=%s, error=%s", file_path, e)
         raise
+
+
+async def get_api_url(storage_path: str, file_type: str = "image") -> str:
+    """获取传给 Seedance API 的媒体 URL。
+    OSS 模式：返回公网 URL。
+    无 OSS 模式：图片转 base64 data URL；视频/音频不支持，抛出 ValueError。
+    """
+    if settings.OSS_ENABLED:
+        return get_public_url(storage_path)
+    if file_type != "image":
+        type_cn = {"video": "视频", "audio": "音频"}.get(file_type, file_type)
+        raise ValueError(f"未配置 OSS 时不支持参考{type_cn}，请配置阿里云 OSS 后使用。")
+    clean_path = storage_path.replace("\\", "/").strip().lstrip("/")
+    abs_path = os.path.abspath(os.path.join(settings.OUTPUT_DIR, clean_path.replace("/", os.sep)))
+    def _encode():
+        with open(abs_path, "rb") as f:
+            data = f.read()
+        mime = mimetypes.guess_type(storage_path)[0] or "image/jpeg"
+        return f"data:{mime};base64,{base64.b64encode(data).decode()}"
+    return await asyncio.to_thread(_encode)
 
 # ==================== 本地操作 (供生成视频使用) ====================
 

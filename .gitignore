@@ -10,3 +10,13 @@ wheels/
 .venv
 logs/
 database.sql
+data/*.db
+
+.env_hexun
+.env
+Pro_INTO.md
+CHANGELOG.md
+outputs/thumbnails/local_user/
+outputs/local_user/upload/
+outputs/videos/Claude Setup.exe
+server.log

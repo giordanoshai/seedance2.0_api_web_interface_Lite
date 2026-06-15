@@ -141,10 +141,16 @@ async def api_upload_file(
     file: UploadFile = File(...),
     file_path: str = Form(...),
 ):
-    """接收前端上传的文件并转存到 OSS"""
+    """接收前端上传的文件，OSS 已配置时存云端，否则仅支持图片（转 base64 传 API）"""
+    content_type = file.content_type or ""
+    if not settings.OSS_ENABLED and not content_type.startswith("image/"):
+        raise HTTPException(
+            status_code=400,
+            detail="未配置 OSS 时仅支持上传参考图片。如需使用参考视频或音频，请先配置阿里云 OSS。",
+        )
     try:
         file_data = await file.read()
-        await upload_file_to_bucket(None, file_path, file_data, file.content_type)
+        await upload_file_to_bucket(None, file_path, file_data, content_type)
         return {"success": True, "path": file_path}
     except Exception as e:
         logger.error(f"上传文件失败: {str(e)}")

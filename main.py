@@ -1,6 +1,10 @@
 """
 SD_Video — FastAPI 视频生成应用主程序（开源简化版：SQLite3 + 无登录）
 """
+# 必须在所有 app.* 导入之前加载 .env，否则 os.getenv() 读不到值
+from dotenv import load_dotenv
+load_dotenv()
+
 import asyncio
 from contextlib import asynccontextmanager
 
@@ -23,6 +27,10 @@ async def lifespan(app: FastAPI):
     for sub in ["videos", "thumbnails"]:
         path = Path(settings.OUTPUT_DIR) / sub
         path.mkdir(parents=True, exist_ok=True)
+
+    # 无 OSS 时，上传的参考素材也存本地，提前建好目录
+    if not settings.OSS_ENABLED:
+        (Path(settings.OUTPUT_DIR) / "local_user" / "upload").mkdir(parents=True, exist_ok=True)
         
     poller = asyncio.create_task(background_poller())
     yield

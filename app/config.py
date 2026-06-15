@@ -20,11 +20,7 @@ SEEDANCE20_KEY = os.getenv("SEEDANCE20_KEY", "[ENCRYPTION_KEY]")
 class Settings:
     """集中管理所有配置项"""
 
-    # 火山引擎 Ark API (兼容旧逻辑)
-    ARK_API_KEY: str = SEEDANCE20_KEY
-    ARK_BASE_URL: str = "https://ark.cn-beijing.volces.com"
-
-    # Seedance 2.0 上游代理 API
+    # Seedance 2.0 API
     SEEDANCE20_URL: str = SEEDANCE20_URL
     SEEDANCE20_KEY: str = SEEDANCE20_KEY
     SEEDANCE20_MODEL_ID: str = VM_SEEDANCE_20
@@ -59,34 +55,18 @@ class Settings:
             "has_audio": True,
             "resolutions": ["720p"],
         },
-        "seedance-1.5": {
-            "id": VM_SEEDANCE_15,
-            "name": "Seedance 1.5 Pro",
-            "available": bool(ARK_API_KEY != "[ENCRYPTION_KEY]" and VM_SEEDANCE_15),
-            "supports": ["text", "first_frame", "last_frame", "reference_image", "reference_video", "reference_audio"],
-            "ratios": ["16:9", "9:16", "1:1", "21:9", "4:3", "3:4"],
-            "durations": [5, 10],
-            "has_audio": True,
-            "resolutions": ["720p", "1080p"],
-        },
-        "seedance-lite": {
-            "id": VM_SEEDANCE_LITE,
-            "name": "Seedance Lite",
-            "available": bool(ARK_API_KEY != "[ENCRYPTION_KEY]" and VM_SEEDANCE_LITE),
-            "supports": ["text", "reference_image"],
-            "ratios": ["16:9", "9:16", "1:1"],
-            "durations": [5, 10],
-            "has_audio": False,
-            "resolutions": ["540p"],
-        }
     }
 
     # 全局并发限制
     MODEL_CONCURRENCY_LIMITS: dict = {
         "seedance-2.0": int(os.getenv("LIMIT_SEEDANCE_20", "10")),
-        "seedance-1.5": int(os.getenv("LIMIT_SEEDANCE_15", "5")),
-        "seedance-lite": int(os.getenv("LIMIT_SEEDANCE_LITE", "20")),
     }
+
+
+    @property
+    def OSS_ENABLED(self) -> bool:
+        """是否已配置阿里云 OSS（三个核心字段均非空时视为已配置）"""
+        return bool(self.OSS_KEY_ID and self.OSS_ACCESSKEY and self.OSS_BUCKET_NAME)
 
 
 settings = Settings()
