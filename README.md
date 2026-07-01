@@ -29,8 +29,8 @@ A private-deployable, lightweight AI video generation workbench built on **Seeda
 > Need the Pro version (multi-user, quota management, Supabase)? Contact: giordanoshai@gmail.com
 ---
 ## deamon
-Lite:https://sd-lite.smartled.cc(https://sd-lite.smartled.cc/)  non-api
-Pro:https://sd.xinrentong.com(https://sd.xinrentong.com) with seedance api
+>Lite:https://sd-lite.smartled.cc    non-api
+>Pro:https://sd.xinrentong.com       with seedance api
 
 ---
 ## 📸 Screenshots
